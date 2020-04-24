@@ -1,0 +1,11 @@
+proto 文件生成
+
+
+protoc --go_out=plugins=grpc:目标文件夹 目标文件名
+
+--go=out=plugins=grpc  使用插件，目前只有grpc插件,多个插件后面可以继续跟加号 如 --go_out = plugins = plugins1+plugins2
+
+使用gogoproto
+
+--gofast-out=plugins=grpc
+

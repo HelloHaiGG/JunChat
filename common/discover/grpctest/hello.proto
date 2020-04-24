@@ -1,0 +1,16 @@
+syntax = "proto3"; // proto 版本
+
+package grpctest; // 包名
+
+service Hello {
+    rpc SayHello (Request) returns (Response) {}
+}
+
+message Request {
+    string Msg = 1;
+}
+
+message Response {
+    string Msg = 1;
+    string Server = 2;
+}
