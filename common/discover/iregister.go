@@ -2,6 +2,7 @@ package common
 
 import (
 	"JunChat/common/ietcd"
+	"JunChat/utils"
 	"context"
 	"fmt"
 	"go.etcd.io/etcd/clientv3"
@@ -83,26 +84,9 @@ func (p *RegisterSvr) CancelLease() error {
 //注册服务
 func (p *RegisterSvr) Register(server string, port string) error {
 	kv := clientv3.NewKV(p.client)
-	addr := net.JoinHostPort(getInternalIp(), port)
+	addr := net.JoinHostPort(utils.GetInternalIp(), port)
 	server = fmt.Sprintf("/%s/%s/%s", DNSName, server, addr)
 	_, err := kv.Put(context.TODO(), server, addr, clientv3.WithLease(p.leaseResp.ID))
 
 	return err
-}
-
-func getInternalIp() string {
-	addrs, err := net.InterfaceAddrs()
-	if err != nil {
-		log.Println("Get Internal Ip Fail.")
-		return ""
-	}
-	for _, addr := range addrs {
-		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.IsGlobalUnicast() {
-			if ipnet.IP.To4() != nil {
-				return ipnet.IP.String()
-			}
-		}
-	}
-	log.Println("Get Internal Ip Fail.")
-	return ""
 }

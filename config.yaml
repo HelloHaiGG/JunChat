@@ -1,0 +1,37 @@
+#### 中间件配置
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: 123456
+  is_debug: true
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: 123456
+  db: 0
+
+etcd:
+  host: [127.0.0.1:2379]
+  user: root
+  password: root123456
+  dail_time_out: 10
+  dail_keep_alive_time: 10
+
+grpc:
+  call_time_out: 10 #秒
+
+
+servers:
+  gateway: "gateway"
+  core: "core"
+  queue: "queue"
+  connect: "connect"
+
+
+connect_port:
+  node_1: 7933
+  node_2: 7944
+  node_3: 7945
+  node_4: 7946

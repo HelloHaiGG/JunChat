@@ -1,6 +1,7 @@
 package common
 
 import (
+	"JunChat/common/ietcd"
 	"google.golang.org/grpc/resolver"
 	"log"
 )

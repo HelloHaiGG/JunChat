@@ -1,31 +1,20 @@
 package config
 
 type appCfg struct {
-	LTopic  LogTopic `yaml:"l_topic"`
-	Kafka   KafkaCfg `yaml:"kafka"`
-	Servers Servers  `yaml:"servers"`
-	Redis   RedisCfg `yaml:"redis"`
-	Mysql   MysqlCfg `yaml:"mysql"`
-	Grpc    GrpcCfg  `yaml:"grpc"`
-	Etcd    EtcdCfg  `yaml:"etcd"`
-}
-
-type LogTopic struct {
-	Order   string `yaml:"order"`
-	Finance string `yaml:"finance"`
-	Gateway string `yaml:"gateway"`
-}
-
-type KafkaCfg struct {
-	Brokers []string `yaml:"brokers"`
-	Timeout int      `yaml:"timeout"`
+	Servers Servers      `yaml:"servers"`
+	Redis   RedisCfg     `yaml:"redis"`
+	Mysql   MysqlCfg     `yaml:"mysql"`
+	Grpc    GrpcCfg      `yaml:"grpc"`
+	Etcd    EtcdCfg      `yaml:"etcd"`
+	CN      ConnectNodes `yaml:"connect_port"`
 }
 
 //服务
 type Servers struct {
-	Order   string `yaml:"order"`
-	Finance string `yaml:"finance"`
 	Gateway string `yaml:"gateway"`
+	Core    string `yaml:"core"`
+	Connect string `json:"connect"`
+	Queue   string `json:"queue"`
 }
 
 //redis 
@@ -61,4 +50,12 @@ type EtcdCfg struct {
 //grpc
 type GrpcCfg struct {
 	CallTimeOut int32 `yaml:"call_time_out"`
+}
+
+//connect 端口
+type ConnectNodes struct {
+	Node1 int32 `json:"node_1"`
+	Node2 int32 `json:"node_2"`
+	Node3 int32 `json:"node_3"`
+	Node4 int32 `json:"node_4"`
 }

@@ -1,0 +1,16 @@
+syntax = "proto3"; // proto 版本
+
+package common; // 包名
+
+service ProtoDial {
+    rpc TryDial (Request) returns (Response) {
+    }
+}
+
+message Request {
+    string Ping = 1;
+}
+
+message Response {
+    string Pong = 1;
+}
