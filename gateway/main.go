@@ -1,13 +1,12 @@
 package main
 
 import (
-	common2 "JunChat/common"
-	common "JunChat/common/discover"
 	"JunChat/common/ietcd"
 	"JunChat/config"
-	"JunChat/core/servers"
-	"google.golang.org/grpc"
+	"JunChat/gateway/router"
+	"golang.org/x/sync/errgroup"
 	"log"
+	"net/http"
 	"time"
 )
 
@@ -21,21 +20,20 @@ func main() {
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
 
-	//注册服务
-	register, err := common.NewRegisterSvr(ietcd.Client, int64(config.APPConfig.Grpc.CallTimeOut))
-	if err != nil {
-		log.Fatal("[GateWay] New Register Server:", err)
-	}
-	err = register.Register(config.APPConfig.Servers.Gateway, "5164")
-	if err != nil {
-		log.Fatal("[GateWay] Register Server:", err)
-	}
+	eg := &errgroup.Group{}
 
-	err = register.RunRpcServer("5164", func(server *grpc.Server) {
-		common2.RegisterProtoDialServer(server, new(servers.CoreDialServer))
+	//用户网关服务
+	junServer := &http.Server{
+		Addr:         "127.255.10.1:59277", //及鲜app
+		Handler:      router.Router(),
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	eg.Go(func() error {
+		return junServer.ListenAndServe()
 	})
 
-	if err != nil {
-		log.Fatal("[GateWay] RunRpcServer Err:", err)
+	if err := eg.Wait(); err != nil {
+		log.Fatal("App gateway err:", err)
 	}
 }

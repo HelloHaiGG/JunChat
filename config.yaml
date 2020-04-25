@@ -31,7 +31,7 @@ servers:
 
 
 connect_port:
-  node_1: 7933
-  node_2: 7944
-  node_3: 7945
-  node_4: 7946
+  nodes: ["7933","7936","7934","7935"]
+
+jun_chat:
+  port: "3501"
