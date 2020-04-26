@@ -14,6 +14,8 @@ import (
 	"time"
 )
 
+var NODE string
+
 func main() {
 	config.Init("./config.yaml")
 	ietcd.Init(ietcd.IOptions{
@@ -28,9 +30,8 @@ func main() {
 	for i, node := range config.APPConfig.CN.Nodes {
 		ports[fmt.Sprintf("node-%d", i+1)] = node
 	}
-	var node string
-	flag.StringVar(&node, "node", "node-1", "程序节点")
-	port, ok := ports[node]
+	flag.StringVar(&NODE, "node", "node-1", "程序节点")
+	port, ok := ports[NODE]
 	if !ok {
 		log.Fatalf("未配置的节点")
 	}

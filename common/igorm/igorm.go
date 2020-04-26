@@ -24,8 +24,14 @@ func Init(option *IOption) {
 	db.DB().SetMaxOpenConns(50)  //最大空闲连接数
 	db.DB().SetMaxIdleConns(120) //连接池最大连接数
 	//自动建表
-	db.AutoMigrate()
+	db.AutoMigrate(models...)
 	DbClient = db
+}
+
+var models = make([]interface{}, 0)
+
+func Register(model interface{}) {
+	models = append(models, model)
 }
 
 type IOption struct {

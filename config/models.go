@@ -7,6 +7,7 @@ type appCfg struct {
 	Grpc    GrpcCfg      `yaml:"grpc"`
 	Etcd    EtcdCfg      `yaml:"etcd"`
 	CN      ConnectNodes `yaml:"connect_port"`
+	CC      ConnectNodes `yaml:"core_port"`
 	JC      JunChat      `yaml:"jun_chat"`
 }
 
@@ -55,7 +56,7 @@ type GrpcCfg struct {
 
 //connect 端口
 type ConnectNodes struct {
-	Nodes []string
+	Nodes []string `yaml:"nodes"`
 }
 
 //JunChat 端口

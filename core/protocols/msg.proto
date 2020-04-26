@@ -1,0 +1,16 @@
+syntax = "proto3"; // proto 版本
+
+package core; // 包名
+
+message SendMsgParams {
+    bytes Msg = 1;
+    string UserId = 2;
+}
+
+message SendMsgRsp {
+    int32 Code = 1;
+}
+
+service SendMsgController {
+    rpc SendMessage(SendMsgParams) returns (SendMsgRsp){}
+}

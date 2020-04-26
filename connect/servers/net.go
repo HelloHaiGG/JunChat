@@ -42,12 +42,6 @@ func HandleReq(w http.ResponseWriter, r *http.Request) {
 	//2.聊天室所在服务
 }
 
-
-
-func HandleMsg()  {
-
-}
-
 //http 升级为 websocket
 func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) error {
 	//将http请求升级为websocket

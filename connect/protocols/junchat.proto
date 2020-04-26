@@ -1,0 +1,32 @@
+syntax = "proto3"; // proto 版本
+
+package connect; // 包名
+
+//加入聊天室
+message JoinRoomParams {
+    string Uid = 1;
+    string Rid = 2;
+}
+
+message JoinRoomRsp {
+    string ServerId = 1;
+    int32 MemberCount = 2;
+    int32 OnlineCount = 3;
+}
+
+//向聊天室发送消息
+message SendRoomMsgParams {
+    string Rid = 1;
+    string ServerId = 2;
+}
+
+message SendRoomMsgRsp {
+    int32 Code = 1;
+}
+
+service JunChatRoom {
+    rpc JoinRoomById (JoinRoomParams) returns (JoinRoomRsp) {
+    }
+    rpc SendMsgToRoom (SendRoomMsgParams) returns (SendRoomMsgRsp) {
+    }
+}

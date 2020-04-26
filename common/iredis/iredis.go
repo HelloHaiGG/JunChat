@@ -17,12 +17,13 @@ func Init(opt *IOptions) {
 		Addr:        fmt.Sprintf("%s:%d", opt.Host, opt.Port),
 		Password:    opt.Password,
 		DB:          opt.DB,
-		MaxRetries:  opt.MaxRetry,
-		DialTimeout: opt.DialTimeOut,
-		MaxConnAge:  opt.MaxConnAge,
+		//MaxRetries:  opt.MaxRetry,
+		//DialTimeout: 10 * time.Second,
+		//MaxConnAge:  10 * time.Second,
+
 	})
 	if RedisCli.Ping().Err() != nil {
-		log.Fatal("Redis初始化失败.",RedisCli.Ping().Err())
+		log.Fatal("Redis初始化失败.", RedisCli.Ping().Err())
 	}
 }
 
@@ -50,7 +51,7 @@ func (p *IOptions) init() {
 		p.DB = 0
 	}
 	if p.Password == "" {
-		p.Password = "root"
+		p.Password = ""
 	}
 	if p.MaxRetry == 0 {
 		p.MaxRetry = 5
