@@ -2,32 +2,33 @@ syntax = "proto3"; // proto 版本
 package connect;
 
 message MessageBody {
-    string Id = 1; //消息唯一ID
-    string Text = 2; //文本消息
-    repeated string Urls = 3; //超链接数组
-    bytes FileBody = 4; //文件
-    int64 SendTime = 5; //发送时间
-    string Sender = 6; //发送人
-    string Receiver = 7; //接受者
-    int32 MsgType = 8; //消息类型
+  string Id = 1; //消息唯一ID
+  string Text = 2; //文本消息
+  repeated string Urls = 3; //超链接数组
+  bytes FileBody = 4; //文件
+  int64 SendTime = 5; //发送时间
+  string Sender = 6; //发送人
+  string Receiver = 7; //接受者
+  int32 MsgType = 8; //消息类型
 }
 
 message PushMsgParams {
-    bool Encrypted = 1; //是否是加密消息
-    int32 Encryption = 2; //加密方式
-    MessageBody Msg = 3;
-    string ServerId = 4;
+  bool Encrypted = 1; //是否是加密消息
+  int32 Encryption = 2; //加密方式
+  bool Decompression = 3;
+  MessageBody Msg = 4;
+  string ServerId = 5;
 }
 
 
 message PushMsgRsp {
-    int32 Code = 1;
+  int32 Code = 1;
 }
 
 service PushMsgToConnect {
-    //将消息推送到Connect层
-    rpc PushMsgToConnectServer (PushMsgParams) returns (PushMsgRsp) {
-    }
+  //将消息推送到Connect层
+  rpc PushMsgToConnectServer (PushMsgParams) returns (PushMsgRsp) {
+  }
 }
 
 
