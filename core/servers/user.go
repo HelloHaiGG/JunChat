@@ -65,10 +65,10 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 		}, nil
 	}
 
-	token := &models.TokenEntity{Info: &user, TimeStamp: time.Now().Unix()}
+	token := &models.TokenEntity{Info: &user, ServerId: serverId, TimeStamp: time.Now().Unix()}
 	str, _ := jsoniter.MarshalToString(token)
 
-	session := utils.GetMd5WithStr(str)
+	session,_ := utils.AesEncrypt([]byte(str),utils.KEY)
 
 	err = SetToken(session, user.Uid)
 	if err != nil {

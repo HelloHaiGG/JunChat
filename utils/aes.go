@@ -11,6 +11,8 @@ import (
 aes 加解密
 */
 
+const KEY = "AAAAAAAAAAAAAAAA"
+
 //加密
 func AesEncrypt(body []byte, key string) (string, error) {
 	//key 的位数对应三种加密方式 16：aes-128,24：aes-192,32-aes256

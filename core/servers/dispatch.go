@@ -14,7 +14,7 @@ var dispatchMap sync.Map
 
 func InitDispatchMap() {
 	for i, _ := range config.APPConfig.CN.Nodes {
-		dispatchMap.Store(fmt.Sprintf("core-node-%d", i+1), 0)
+		dispatchMap.Store(fmt.Sprintf("node-%d", i+1), 0)
 	}
 }
 

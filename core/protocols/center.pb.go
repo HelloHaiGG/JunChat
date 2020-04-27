@@ -256,27 +256,28 @@ func (m *GetMembersRsp) GetOnlineCount() int32 {
 	return 0
 }
 
-//汇报 用户/或者聊天室 已经退出登录
-type ReportLogoutParams struct {
+//汇报 用户/或者断开链接 或者 已经退出登录
+type ReportDisconnectParams struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
-	Category             int32    `protobuf:"varint,2,opt,name=Category,proto3" json:"Category,omitempty"`
+	ServerId             string   `protobuf:"bytes,2,opt,name=ServerId,proto3" json:"ServerId,omitempty"`
+	Category             int32    `protobuf:"varint,3,opt,name=Category,proto3" json:"Category,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ReportLogoutParams) Reset()         { *m = ReportLogoutParams{} }
-func (m *ReportLogoutParams) String() string { return proto.CompactTextString(m) }
-func (*ReportLogoutParams) ProtoMessage()    {}
-func (*ReportLogoutParams) Descriptor() ([]byte, []int) {
+func (m *ReportDisconnectParams) Reset()         { *m = ReportDisconnectParams{} }
+func (m *ReportDisconnectParams) String() string { return proto.CompactTextString(m) }
+func (*ReportDisconnectParams) ProtoMessage()    {}
+func (*ReportDisconnectParams) Descriptor() ([]byte, []int) {
 	return fileDescriptor_1de517c49d537f4b, []int{4}
 }
-func (m *ReportLogoutParams) XXX_Unmarshal(b []byte) error {
+func (m *ReportDisconnectParams) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *ReportLogoutParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *ReportDisconnectParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_ReportLogoutParams.Marshal(b, m, deterministic)
+		return xxx_messageInfo_ReportDisconnectParams.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -286,33 +287,40 @@ func (m *ReportLogoutParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *ReportLogoutParams) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReportLogoutParams.Merge(m, src)
+func (m *ReportDisconnectParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReportDisconnectParams.Merge(m, src)
 }
-func (m *ReportLogoutParams) XXX_Size() int {
+func (m *ReportDisconnectParams) XXX_Size() int {
 	return m.Size()
 }
-func (m *ReportLogoutParams) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReportLogoutParams.DiscardUnknown(m)
+func (m *ReportDisconnectParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReportDisconnectParams.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReportLogoutParams proto.InternalMessageInfo
+var xxx_messageInfo_ReportDisconnectParams proto.InternalMessageInfo
 
-func (m *ReportLogoutParams) GetId() string {
+func (m *ReportDisconnectParams) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *ReportLogoutParams) GetCategory() int32 {
+func (m *ReportDisconnectParams) GetServerId() string {
+	if m != nil {
+		return m.ServerId
+	}
+	return ""
+}
+
+func (m *ReportDisconnectParams) GetCategory() int32 {
 	if m != nil {
 		return m.Category
 	}
 	return 0
 }
 
-type ReportLogoutRsp struct {
+type ReportDisconnectRsp struct {
 	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
 	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -320,18 +328,18 @@ type ReportLogoutRsp struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ReportLogoutRsp) Reset()         { *m = ReportLogoutRsp{} }
-func (m *ReportLogoutRsp) String() string { return proto.CompactTextString(m) }
-func (*ReportLogoutRsp) ProtoMessage()    {}
-func (*ReportLogoutRsp) Descriptor() ([]byte, []int) {
+func (m *ReportDisconnectRsp) Reset()         { *m = ReportDisconnectRsp{} }
+func (m *ReportDisconnectRsp) String() string { return proto.CompactTextString(m) }
+func (*ReportDisconnectRsp) ProtoMessage()    {}
+func (*ReportDisconnectRsp) Descriptor() ([]byte, []int) {
 	return fileDescriptor_1de517c49d537f4b, []int{5}
 }
-func (m *ReportLogoutRsp) XXX_Unmarshal(b []byte) error {
+func (m *ReportDisconnectRsp) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *ReportLogoutRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *ReportDisconnectRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_ReportLogoutRsp.Marshal(b, m, deterministic)
+		return xxx_messageInfo_ReportDisconnectRsp.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -341,26 +349,26 @@ func (m *ReportLogoutRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-func (m *ReportLogoutRsp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReportLogoutRsp.Merge(m, src)
+func (m *ReportDisconnectRsp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReportDisconnectRsp.Merge(m, src)
 }
-func (m *ReportLogoutRsp) XXX_Size() int {
+func (m *ReportDisconnectRsp) XXX_Size() int {
 	return m.Size()
 }
-func (m *ReportLogoutRsp) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReportLogoutRsp.DiscardUnknown(m)
+func (m *ReportDisconnectRsp) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReportDisconnectRsp.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReportLogoutRsp proto.InternalMessageInfo
+var xxx_messageInfo_ReportDisconnectRsp proto.InternalMessageInfo
 
-func (m *ReportLogoutRsp) GetCode() int32 {
+func (m *ReportDisconnectRsp) GetCode() int32 {
 	if m != nil {
 		return m.Code
 	}
 	return 0
 }
 
-func (m *ReportLogoutRsp) GetId() string {
+func (m *ReportDisconnectRsp) GetId() string {
 	if m != nil {
 		return m.Id
 	}
@@ -372,36 +380,36 @@ func init() {
 	proto.RegisterType((*GetServerByIdRsp)(nil), "core.GetServerByIdRsp")
 	proto.RegisterType((*GetMembersParams)(nil), "core.GetMembersParams")
 	proto.RegisterType((*GetMembersRsp)(nil), "core.GetMembersRsp")
-	proto.RegisterType((*ReportLogoutParams)(nil), "core.ReportLogoutParams")
-	proto.RegisterType((*ReportLogoutRsp)(nil), "core.ReportLogoutRsp")
+	proto.RegisterType((*ReportDisconnectParams)(nil), "core.ReportDisconnectParams")
+	proto.RegisterType((*ReportDisconnectRsp)(nil), "core.ReportDisconnectRsp")
 }
 
 func init() { proto.RegisterFile("center.proto", fileDescriptor_1de517c49d537f4b) }
 
 var fileDescriptor_1de517c49d537f4b = []byte{
-	// 345 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0xbd, 0x4e, 0xc3, 0x30,
-	0x14, 0x85, 0x6b, 0xf7, 0x47, 0xf4, 0x52, 0x4a, 0xe5, 0x02, 0x0a, 0x19, 0xa2, 0x28, 0x53, 0xa7,
-	0x0e, 0x20, 0x26, 0x06, 0x4a, 0x33, 0x54, 0x91, 0x40, 0x20, 0x33, 0x31, 0xb6, 0xf5, 0x55, 0x15,
-	0x89, 0xc6, 0x91, 0xe3, 0x22, 0xf5, 0x4d, 0x78, 0x24, 0x26, 0xc4, 0x23, 0xa0, 0xf2, 0x22, 0x28,
-	0x76, 0xff, 0x5b, 0x10, 0x9b, 0xaf, 0x7d, 0xf2, 0xe9, 0x9c, 0x73, 0x03, 0xb5, 0x21, 0x26, 0x1a,
-	0x55, 0x3b, 0x55, 0x52, 0x4b, 0x56, 0x1a, 0x4a, 0x85, 0xc1, 0x2d, 0x34, 0x7b, 0xa8, 0x9f, 0x50,
-	0xbd, 0xa2, 0xea, 0x4e, 0x23, 0xf1, 0xd8, 0x57, 0xfd, 0x71, 0xc6, 0xea, 0x40, 0x23, 0xe1, 0x10,
-	0x9f, 0xb4, 0xaa, 0x9c, 0x46, 0x82, 0xb9, 0x70, 0x10, 0xf6, 0x35, 0x8e, 0xa4, 0x9a, 0x3a, 0x45,
-	0x9f, 0xb4, 0xca, 0x7c, 0x39, 0x07, 0x5d, 0x68, 0x6c, 0x20, 0x78, 0x96, 0x32, 0x06, 0xa5, 0x50,
-	0x0a, 0x34, 0x84, 0x32, 0x37, 0xe7, 0x9c, 0x61, 0x45, 0x91, 0x70, 0xa8, 0x21, 0x2f, 0xe7, 0xa0,
-	0x63, 0x18, 0xf7, 0x38, 0x1e, 0xa0, 0xca, 0xe6, 0x1e, 0x1a, 0x50, 0xe4, 0xf1, 0xc2, 0x44, 0x7e,
-	0xfc, 0x93, 0xf0, 0x0c, 0x47, 0x2b, 0x42, 0x6e, 0xe1, 0x04, 0xca, 0xa1, 0x9c, 0x24, 0x7a, 0xee,
-	0xc1, 0x0e, 0x39, 0x34, 0x12, 0x99, 0x43, 0xfd, 0x62, 0x0e, 0x8d, 0x44, 0xc6, 0x7c, 0x38, 0x7c,
-	0x48, 0x5e, 0xe2, 0x04, 0xad, 0xda, 0xa6, 0x5b, 0xbf, 0x0a, 0x3a, 0xc0, 0x38, 0xa6, 0x52, 0xe9,
-	0x3b, 0x39, 0x92, 0x13, 0xfd, 0x8f, 0x8a, 0xe8, 0x56, 0x45, 0x57, 0x70, 0xbc, 0x4e, 0xf8, 0xad,
-	0xa1, 0x3a, 0xd0, 0x78, 0x91, 0x8c, 0xc6, 0xe2, 0xe2, 0x83, 0x40, 0x2d, 0x34, 0x3b, 0xb3, 0x31,
-	0x59, 0x07, 0xaa, 0xcb, 0xaa, 0xd9, 0x79, 0x3b, 0xdf, 0x60, 0x7b, 0xcf, 0xfa, 0xdc, 0xb3, 0x3d,
-	0x4f, 0x3c, 0x4b, 0x83, 0x02, 0xbb, 0x81, 0x7a, 0x0f, 0x35, 0x97, 0x72, 0x3c, 0xaf, 0x8a, 0xad,
-	0xb4, 0x1b, 0xf5, 0xbb, 0xcd, 0xed, 0x7b, 0x0b, 0xb8, 0x86, 0x8a, 0x8d, 0xc2, 0x1c, 0x2b, 0xd8,
-	0xad, 0xc6, 0x3d, 0xdd, 0x7d, 0x31, 0x1f, 0x77, 0x1b, 0xef, 0x33, 0x8f, 0x7c, 0xce, 0x3c, 0xf2,
-	0x35, 0xf3, 0xc8, 0xdb, 0xb7, 0x57, 0x18, 0x54, 0xcc, 0xcf, 0x78, 0xf9, 0x13, 0x00, 0x00, 0xff,
-	0xff, 0xf3, 0x24, 0x2e, 0x87, 0x9c, 0x02, 0x00, 0x00,
+	// 350 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x92, 0xbd, 0x4e, 0xfb, 0x30,
+	0x14, 0xc5, 0xeb, 0xf4, 0x43, 0xff, 0xde, 0x7f, 0xa9, 0x2a, 0x17, 0x55, 0x69, 0x84, 0xa2, 0x28,
+	0x53, 0xa7, 0x0e, 0x30, 0x31, 0x51, 0x1a, 0xa4, 0x2a, 0x03, 0x02, 0x99, 0x89, 0x8d, 0x36, 0xbe,
+	0x42, 0x91, 0x68, 0x1c, 0xd9, 0x06, 0xa9, 0x6f, 0xc2, 0x23, 0x31, 0x32, 0x31, 0xa3, 0xf2, 0x22,
+	0x28, 0x76, 0x3f, 0x68, 0x95, 0x76, 0xf3, 0xb5, 0x8f, 0x7e, 0x3e, 0x3e, 0xc7, 0xd0, 0x4a, 0x30,
+	0xd3, 0x28, 0x87, 0xb9, 0x14, 0x5a, 0xd0, 0x5a, 0x22, 0x24, 0x86, 0xd7, 0xd0, 0x9d, 0xa0, 0x7e,
+	0x40, 0xf9, 0x86, 0x72, 0xbc, 0x88, 0xf9, 0xfd, 0x54, 0x4e, 0xe7, 0x8a, 0xb6, 0xc1, 0x89, 0xb9,
+	0x4b, 0x02, 0x32, 0x68, 0x32, 0x27, 0xe6, 0xd4, 0x83, 0x7f, 0xd1, 0x54, 0xe3, 0xb3, 0x90, 0x0b,
+	0xb7, 0x1a, 0x90, 0x41, 0x9d, 0x6d, 0xe6, 0x70, 0x0c, 0x9d, 0x1d, 0x04, 0x53, 0x39, 0xa5, 0x50,
+	0x8b, 0x04, 0x47, 0x43, 0xa8, 0x33, 0xb3, 0x2e, 0x18, 0x56, 0x14, 0x73, 0xd7, 0x31, 0xe4, 0xcd,
+	0x1c, 0x8e, 0x0c, 0xe3, 0x16, 0xe7, 0x33, 0x94, 0x6a, 0xe5, 0xa1, 0x03, 0x55, 0x96, 0xae, 0x4d,
+	0x14, 0xcb, 0xa3, 0x84, 0x47, 0x38, 0xd9, 0x12, 0x0a, 0x0b, 0xa7, 0x50, 0x8f, 0xc4, 0x6b, 0xa6,
+	0x57, 0x1e, 0xec, 0x50, 0x40, 0x63, 0xae, 0x5c, 0x27, 0xa8, 0x16, 0xd0, 0x98, 0x2b, 0x1a, 0xc0,
+	0xff, 0xbb, 0xec, 0x25, 0xcd, 0xd0, 0xaa, 0xed, 0xeb, 0xfe, 0x6e, 0x85, 0x4f, 0xd0, 0x63, 0x98,
+	0x0b, 0xa9, 0x6f, 0x52, 0x95, 0x88, 0x2c, 0xc3, 0x44, 0x1f, 0x8e, 0xe9, 0x90, 0xc1, 0xa3, 0x11,
+	0x5e, 0x42, 0x77, 0xff, 0x86, 0x43, 0x29, 0xb6, 0xc1, 0x49, 0xd7, 0x70, 0x27, 0xe5, 0xe7, 0x5f,
+	0x04, 0x5a, 0x91, 0xe9, 0xd5, 0xde, 0x44, 0x47, 0xd0, 0xdc, 0xd4, 0x41, 0xfb, 0xc3, 0xa2, 0xe5,
+	0x61, 0x49, 0xc5, 0x5e, 0xaf, 0xe4, 0x88, 0xa9, 0x3c, 0xac, 0xd0, 0x2b, 0x68, 0x4f, 0x50, 0x33,
+	0x21, 0xe6, 0xab, 0x38, 0xe9, 0x56, 0xbb, 0x53, 0x91, 0xd7, 0xdd, 0xdf, 0xb7, 0x80, 0x08, 0x1a,
+	0xf6, 0x39, 0xf4, 0xcc, 0x0a, 0xca, 0xe3, 0xf3, 0xfa, 0xe5, 0xa7, 0x06, 0x32, 0xee, 0x7c, 0x2c,
+	0x7d, 0xf2, 0xb9, 0xf4, 0xc9, 0xf7, 0xd2, 0x27, 0xef, 0x3f, 0x7e, 0x65, 0xd6, 0x30, 0x1f, 0xf7,
+	0xe2, 0x37, 0x00, 0x00, 0xff, 0xff, 0x8f, 0x5f, 0x4b, 0x9b, 0xc8, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -421,7 +429,7 @@ type CenterServerClient interface {
 	//获取房间内成员
 	GetRoomMembers(ctx context.Context, in *GetMembersParams, opts ...grpc.CallOption) (*GetMembersRsp, error)
 	//汇报
-	Report(ctx context.Context, in *ReportLogoutParams, opts ...grpc.CallOption) (*ReportLogoutRsp, error)
+	Report(ctx context.Context, in *ReportDisconnectParams, opts ...grpc.CallOption) (*ReportDisconnectRsp, error)
 }
 
 type centerServerClient struct {
@@ -450,8 +458,8 @@ func (c *centerServerClient) GetRoomMembers(ctx context.Context, in *GetMembersP
 	return out, nil
 }
 
-func (c *centerServerClient) Report(ctx context.Context, in *ReportLogoutParams, opts ...grpc.CallOption) (*ReportLogoutRsp, error) {
-	out := new(ReportLogoutRsp)
+func (c *centerServerClient) Report(ctx context.Context, in *ReportDisconnectParams, opts ...grpc.CallOption) (*ReportDisconnectRsp, error) {
+	out := new(ReportDisconnectRsp)
 	err := c.cc.Invoke(ctx, "/core.CenterServer/Report", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -466,7 +474,7 @@ type CenterServerServer interface {
 	//获取房间内成员
 	GetRoomMembers(context.Context, *GetMembersParams) (*GetMembersRsp, error)
 	//汇报
-	Report(context.Context, *ReportLogoutParams) (*ReportLogoutRsp, error)
+	Report(context.Context, *ReportDisconnectParams) (*ReportDisconnectRsp, error)
 }
 
 // UnimplementedCenterServerServer can be embedded to have forward compatible implementations.
@@ -479,7 +487,7 @@ func (*UnimplementedCenterServerServer) GetServer(ctx context.Context, req *GetS
 func (*UnimplementedCenterServerServer) GetRoomMembers(ctx context.Context, req *GetMembersParams) (*GetMembersRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoomMembers not implemented")
 }
-func (*UnimplementedCenterServerServer) Report(ctx context.Context, req *ReportLogoutParams) (*ReportLogoutRsp, error) {
+func (*UnimplementedCenterServerServer) Report(ctx context.Context, req *ReportDisconnectParams) (*ReportDisconnectRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Report not implemented")
 }
 
@@ -524,7 +532,7 @@ func _CenterServer_GetRoomMembers_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _CenterServer_Report_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReportLogoutParams)
+	in := new(ReportDisconnectParams)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -536,7 +544,7 @@ func _CenterServer_Report_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/core.CenterServer/Report",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CenterServerServer).Report(ctx, req.(*ReportLogoutParams))
+		return srv.(CenterServerServer).Report(ctx, req.(*ReportDisconnectParams))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -727,7 +735,7 @@ func (m *GetMembersRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *ReportLogoutParams) Marshal() (dAtA []byte, err error) {
+func (m *ReportDisconnectParams) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -737,12 +745,12 @@ func (m *ReportLogoutParams) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ReportLogoutParams) MarshalTo(dAtA []byte) (int, error) {
+func (m *ReportDisconnectParams) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *ReportLogoutParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *ReportDisconnectParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -754,7 +762,14 @@ func (m *ReportLogoutParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.Category != 0 {
 		i = encodeVarintCenter(dAtA, i, uint64(m.Category))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
+	}
+	if len(m.ServerId) > 0 {
+		i -= len(m.ServerId)
+		copy(dAtA[i:], m.ServerId)
+		i = encodeVarintCenter(dAtA, i, uint64(len(m.ServerId)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.Id) > 0 {
 		i -= len(m.Id)
@@ -766,7 +781,7 @@ func (m *ReportLogoutParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *ReportLogoutRsp) Marshal() (dAtA []byte, err error) {
+func (m *ReportDisconnectRsp) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -776,12 +791,12 @@ func (m *ReportLogoutRsp) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ReportLogoutRsp) MarshalTo(dAtA []byte) (int, error) {
+func (m *ReportDisconnectRsp) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *ReportLogoutRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *ReportDisconnectRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -898,13 +913,17 @@ func (m *GetMembersRsp) Size() (n int) {
 	return n
 }
 
-func (m *ReportLogoutParams) Size() (n int) {
+func (m *ReportDisconnectParams) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
 	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovCenter(uint64(l))
+	}
+	l = len(m.ServerId)
 	if l > 0 {
 		n += 1 + l + sovCenter(uint64(l))
 	}
@@ -917,7 +936,7 @@ func (m *ReportLogoutParams) Size() (n int) {
 	return n
 }
 
-func (m *ReportLogoutRsp) Size() (n int) {
+func (m *ReportDisconnectRsp) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1394,7 +1413,7 @@ func (m *GetMembersRsp) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ReportLogoutParams) Unmarshal(dAtA []byte) error {
+func (m *ReportDisconnectParams) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1417,10 +1436,10 @@ func (m *ReportLogoutParams) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ReportLogoutParams: wiretype end group for non-group")
+			return fmt.Errorf("proto: ReportDisconnectParams: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ReportLogoutParams: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: ReportDisconnectParams: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1456,6 +1475,38 @@ func (m *ReportLogoutParams) Unmarshal(dAtA []byte) error {
 			m.Id = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ServerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ServerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Category", wireType)
 			}
@@ -1499,7 +1550,7 @@ func (m *ReportLogoutParams) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ReportLogoutRsp) Unmarshal(dAtA []byte) error {
+func (m *ReportDisconnectRsp) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1522,10 +1573,10 @@ func (m *ReportLogoutRsp) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ReportLogoutRsp: wiretype end group for non-group")
+			return fmt.Errorf("proto: ReportDisconnectRsp: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ReportLogoutRsp: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: ReportDisconnectRsp: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

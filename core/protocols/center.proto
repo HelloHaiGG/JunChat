@@ -4,46 +4,47 @@ package core; // 包名
 
 //获取
 message GetServerByIdParams {
-    string Id = 1;
-    int32 Category = 3; // 1.用户,房间
+  string Id = 1;
+  int32 Category = 3; // 1.用户,房间
 }
 
 message GetServerByIdRsp {
-    int32 Code = 1;
-    string ServerId = 2;
+  int32 Code = 1;
+  string ServerId = 2;
 }
 
 //获取房间内成员列表
 message GetMembersParams {
-    string Rid = 1;
-    string ServerId = 2;
+  string Rid = 1;
+  string ServerId = 2;
 }
 
 message GetMembersRsp {
-    int32 Count = 1;
-    repeated string Ids = 2;
-    int32 OnlineCount = 3;
+  int32 Count = 1;
+  repeated string Ids = 2;
+  int32 OnlineCount = 3;
 }
 
-//汇报 用户/或者聊天室 已经退出登录
-message ReportLogoutParams {
-    string Id = 1;
-    int32 Category = 2;
+//汇报 用户/或者断开链接 或者 已经退出登录
+message ReportDisconnectParams {
+  string Id = 1;
+  string ServerId = 2;
+  int32 Category = 3;
 }
 
-message ReportLogoutRsp {
-    int32 Code = 1;
-    string id = 2;
+message ReportDisconnectRsp {
+  int32 Code = 1;
+  string id = 2;
 }
 
 service CenterServer {
-    //获取用户所在Server
-    rpc GetServer (GetServerByIdParams) returns (GetServerByIdRsp) {
-    }
-    //获取房间内成员
-    rpc GetRoomMembers (GetMembersParams) returns (GetMembersRsp) {
-    }
-    //汇报
-    rpc Report (ReportLogoutParams) returns (ReportLogoutRsp) {
-    }
+  //获取用户所在Server
+  rpc GetServer (GetServerByIdParams) returns (GetServerByIdRsp) {
+  }
+  //获取房间内成员
+  rpc GetRoomMembers (GetMembersParams) returns (GetMembersRsp) {
+  }
+  //汇报
+  rpc Report (ReportDisconnectParams) returns (ReportDisconnectRsp) {
+  }
 }

@@ -1,8 +1,12 @@
 package servers
 
 import (
+	common2 "JunChat/common"
+	"JunChat/common/iredis"
 	core "JunChat/core/protocols"
+	"JunChat/utils"
 	"context"
+	jsoniter "github.com/json-iterator/go"
 	"sync"
 )
 
@@ -23,6 +27,24 @@ func (p *CenterServerController) GetRoomMembers(ctx context.Context, in *core.Ge
 	return nil, nil
 }
 
-func (p *CenterServerController) Report(ctx context.Context, in *core.ReportLogoutParams) (*core.ReportLogoutRsp, error) {
-	return nil, nil
+func (p *CenterServerController) Report(ctx context.Context, in *core.ReportDisconnectParams) (*core.ReportDisconnectRsp, error) {
+
+	//去除redis中的记录
+	str, err := iredis.RedisCli.HGet("SERVER:USE", in.ServerId).Result()
+	if err != nil {
+		return &core.ReportDisconnectRsp{Code: common2.ServeNotLive}, nil
+	}
+	users := &Users{}
+	_ = jsoniter.UnmarshalFromString(str, users)
+	i, at := utils.IncludeItem(users.Ids, in.Id)
+	if !at {
+		return &core.ReportDisconnectRsp{Code: common2.UserAlreadyRemove}, nil
+	}
+	users.Ids = append(users.Ids[:i], users.Ids[i+1:]...)
+	str, _ = jsoniter.MarshalToString(users)
+	suc, _ := iredis.RedisCli.HSet("SERVER:USE", in.ServerId, str).Result()
+	if !suc {
+		return &core.ReportDisconnectRsp{Code: common2.RemoveUserIdFailed}, nil
+	}
+	return &core.ReportDisconnectRsp{Code: common2.Success, Id: in.Id}, nil
 }

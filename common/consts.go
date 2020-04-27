@@ -13,4 +13,8 @@ const (
 	UserAlreadyExists
 	UserAlreadyLogin
 	ParamsErr
+
+	ServeNotLive
+	UserAlreadyRemove
+	RemoveUserIdFailed
 )

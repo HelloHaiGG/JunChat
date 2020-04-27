@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-var NODE string
+var NODE *string
 
 func main() {
 	config.Init("./config.yaml")
@@ -27,18 +27,21 @@ func main() {
 	})
 	//通过命令控制运行端口
 	ports := make(map[string]string)
+	netPorts := make(map[string]string)
 	for i, node := range config.APPConfig.CN.Nodes {
-		ports[fmt.Sprintf("node-%d", i+1)] = node
+		key := fmt.Sprintf("node-%d", i+1)
+		ports[key] = node
+		netPorts[key] = config.APPConfig.JC.Nodes[i]
 	}
-	flag.StringVar(&NODE, "node", "node-1", "程序节点")
-	port, ok := ports[NODE]
+	NODE = flag.String("node", "node-1", "程序节点")
+	servers2.NODE = *NODE
+	flag.Parse()
+	port, ok := ports[*NODE]
 	if !ok {
 		log.Fatalf("未配置的节点")
 	}
 
-	flag.Parse()
-
-	go servers2.NetConnect()
+	go servers2.NetConnect(netPorts[*NODE])
 
 	//注册服务
 	register, err := common.NewRegisterSvr(ietcd.Client, int64(config.APPConfig.Grpc.CallTimeOut))
