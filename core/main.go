@@ -41,6 +41,9 @@ func main() {
 
 	iredis.Init(&iredis.IOptions{DialTimeOut:10 * time.Second,MaxConnAge:10*time.Second})
 
+	//初始化缓存信息 【玩家Token,服务负载信息】
+	iredis.RedisCli.Del("")
+
 	//通过命令控制运行端口
 	ports := make(map[string]string)
 	for i, node := range config.APPConfig.CC.Nodes {

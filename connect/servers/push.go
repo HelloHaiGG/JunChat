@@ -4,6 +4,9 @@ import (
 	"JunChat/common"
 	connect "JunChat/connect/protocols"
 	"context"
+	"encoding/json"
+	"github.com/gorilla/websocket"
+	"github.com/prometheus/common/log"
 )
 
 type PushMessageController struct {
@@ -13,18 +16,23 @@ func (p *PushMessageController) PushMsgToConnectServer(ctx context.Context, in *
 
 	//TODO 判断是否解密
 	//TODO 判断是否解压缩
-	//TODO 判断是否推送到了正确的服务
-
-	//TODO 获取用户链接
+	//判断是否推送到了正确的服务
+	if in.ServerId != NODE {
+		log.Error("服务节点错误.")
+		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
+	}
+	//获取用户链接
 	if in.Msg.Receiver == "" {
 		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
 	}
 	conn, ok := HandleConn.Load(in.Msg.Receiver)
 	if !ok {
-
+		log.Error("用户未链接.")
+		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
 	}
 	c, _ := conn.(*Connect)
-	_ = c.Conn.WriteMessage(0, nil)
+	b, _ := json.Marshal(in.Msg)
+	_ = c.Conn.WriteMessage(websocket.TextMessage, b)
 
 	return nil, nil
 }

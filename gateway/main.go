@@ -4,6 +4,7 @@ import (
 	"JunChat/common/ietcd"
 	"JunChat/config"
 	"JunChat/gateway/router"
+	"JunChat/utils"
 	"golang.org/x/sync/errgroup"
 	"log"
 	"net/http"
@@ -19,6 +20,8 @@ func main() {
 		KeepAliveTime: time.Duration(config.APPConfig.Etcd.DialKeepAliveTime),
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
+
+	utils.InitSF(520)
 
 	eg := &errgroup.Group{}
 

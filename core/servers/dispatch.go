@@ -13,18 +13,25 @@ import (
 var dispatchMap sync.Map
 
 func InitDispatchMap() {
+	keys, _ := iredis.RedisCli.Keys("JUN:CHAT:SESSION:*").Result()
+	_, _ = iredis.RedisCli.Del(keys...).Result()
+	keys, _ = iredis.RedisCli.HKeys("SERVER:USER").Result()
 	for i, _ := range config.APPConfig.CN.Nodes {
-		dispatchMap.Store(fmt.Sprintf("node-%d", i+1), 0)
+		key := fmt.Sprintf("node-%d",i+1)
+		dispatchMap.Store(key, 0)
+		_, _ = iredis.RedisCli.HMSet("SERVER:USER", map[string]interface{}{
+			"core-" + key:"",
+		}).Result()
 	}
 }
 
 func Dispatch(uid string) (string, error) {
-	serverId ,err := GetOnlineServer(uid)
+	serverId, err := GetOnlineServer(uid)
 	if err != nil {
-		return "",err
+		return "", err
 	}
-	if serverId != ""{
-		return serverId,nil
+	if serverId != "" {
+		return serverId, nil
 	}
 	serverId = getMinLoad()
 	value, _ := dispatchMap.Load(serverId)
