@@ -17,7 +17,7 @@ func (p *PushMessageController) PushMsgToConnectServer(ctx context.Context, in *
 	//TODO 判断是否解密
 	//TODO 判断是否解压缩
 	//判断是否推送到了正确的服务
-	if in.ServerId != NODE {
+	if in.ServerId != NETServer {
 		log.Error("服务节点错误.")
 		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
 	}

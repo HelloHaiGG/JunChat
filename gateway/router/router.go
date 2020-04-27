@@ -113,7 +113,7 @@ func SendMsg(c *gin.Context) {
 		return
 	}
 	_ = jsoniter.UnmarshalFromString(str, entity)
-	if time.Now().Unix()-entity.TimeStamp >= 30 {
+	if time.Now().Unix()-entity.TimeStamp >= 30*60 {
 		c.JSON(http.StatusForbidden, &gin.H{
 			"Code": common.LoginTimeOut,
 		})

@@ -1,8 +1,12 @@
 package models
 
 import (
+	"JunChat/common"
 	"JunChat/common/igorm"
+	"JunChat/common/iredis"
+	"JunChat/utils"
 	"errors"
+	jsoniter "github.com/json-iterator/go"
 )
 
 type UserInfo struct {
@@ -65,4 +69,24 @@ func (p *UserInfo) LoginByUserName() error {
 		return err
 	}
 	return nil
+}
+
+type Users struct {
+	Ids []string `json:"ids"`
+}
+
+//遍历所有server,如果现在直接返回所在serverId
+func GetOnlineServer(uid string) (string, error) {
+	server, err := iredis.RedisCli.HGetAll(common.LiveOnServer).Result()
+	if err != nil {
+		return "", err
+	}
+	for str, _ := range server {
+		users := &Users{}
+		_ = jsoniter.UnmarshalFromString(server[str], users)
+		if _, in := utils.IncludeItem(users.Ids, uid); in {
+			return str, nil
+		}
+	}
+	return "", nil
 }

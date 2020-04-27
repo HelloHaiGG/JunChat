@@ -30,4 +30,10 @@ const (
 const (
 	RoomChat   = 1
 	SingleChat = 2
+
+	//玩家所在节点
+	LiveOnServer = "LIVE:ON:SERVER"
+
+	//消息队列
+	MsgQueue = "JUN:CHAT:MSG:CHAN"
 )

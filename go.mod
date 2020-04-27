@@ -30,8 +30,9 @@ require (
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/panjf2000/ants/v2 v2.3.1
 	github.com/prometheus/client_golang v1.5.1 // indirect
+	github.com/prometheus/common v0.9.1
 	github.com/soheilhy/cmux v0.1.4 // indirect
-	github.com/spf13/cast v1.3.1 // indirect
+	github.com/spf13/cast v1.3.1
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	go.etcd.io/bbolt v1.3.4 // indirect

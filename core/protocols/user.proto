@@ -13,7 +13,7 @@ message LoginRsp {
     int32 Code = 1;
     string Name = 4;
     string Token = 2;
-    string ServerId = 3;
+    string ServerPort = 3;
 }
 
 message RegisterParams {

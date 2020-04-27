@@ -56,5 +56,5 @@ type GrpcCfg struct {
 
 //connect 端口
 type ConnectNodes struct {
-	Nodes []string `yaml:"nodes"`
+	Nodes map[string]string `yaml:"nodes"`
 }

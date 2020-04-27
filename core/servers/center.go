@@ -3,6 +3,7 @@ package servers
 import (
 	common2 "JunChat/common"
 	"JunChat/common/iredis"
+	"JunChat/core/models"
 	core "JunChat/core/protocols"
 	"JunChat/utils"
 	"context"
@@ -34,7 +35,7 @@ func (p *CenterServerController) Report(ctx context.Context, in *core.ReportDisc
 	if err != nil {
 		return &core.ReportDisconnectRsp{Code: common2.ServeNotLive}, nil
 	}
-	users := &Users{}
+	users := &models.Users{}
 	_ = jsoniter.UnmarshalFromString(str, users)
 	i, at := utils.IncludeItem(users.Ids, in.Id)
 	if !at {
@@ -42,7 +43,7 @@ func (p *CenterServerController) Report(ctx context.Context, in *core.ReportDisc
 	}
 	users.Ids = append(users.Ids[:i], users.Ids[i+1:]...)
 	str, _ = jsoniter.MarshalToString(users)
-	suc, _ := iredis.RedisCli.HSet("SERVER:USE", in.ServerId, str).Result()
+	suc, _ := iredis.RedisCli.HSet(common2.LiveOnServer, in.ServerId, str).Result()
 	if !suc {
 		return &core.ReportDisconnectRsp{Code: common2.RemoveUserIdFailed}, nil
 	}

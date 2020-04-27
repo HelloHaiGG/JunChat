@@ -3,6 +3,7 @@ package servers
 import (
 	"JunChat/common"
 	"JunChat/common/iredis"
+	"JunChat/config"
 	"JunChat/core/models"
 	core "JunChat/core/protocols"
 	"JunChat/utils"
@@ -68,7 +69,7 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 	token := &models.TokenEntity{Info: &user, ServerId: serverId, TimeStamp: time.Now().Unix()}
 	str, _ := jsoniter.MarshalToString(token)
 
-	session,_ := utils.AesEncrypt([]byte(str),utils.KEY)
+	session, _ := utils.AesEncrypt([]byte(str), utils.KEY)
 
 	err = SetToken(session, user.Uid)
 	if err != nil {
@@ -79,7 +80,7 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 
 	return &core.LoginRsp{
 		Code:     common.Success,
-		ServerId: serverId,
+		ServerPort: config.APPConfig.JC.Nodes[serverId],
 		Name:     user.UserName,
 		Token:    session,
 	}, nil

@@ -22,7 +22,7 @@ import (
 )
 
 var HandleConn sync.Map
-var NODE string
+var NETServer string
 
 type Connect struct {
 	Uid         string
@@ -48,27 +48,23 @@ func HandleReq(w http.ResponseWriter, r *http.Request) {
 	}
 	str, err := utils.AesDecrypt(token, utils.KEY)
 	if err != nil {
-		fmt.Println("认证")
 		_, _ = io.WriteString(w, "认证失败!")
 		return
 	}
 	entity := &models.TokenEntity{}
 	_ = jsoniter.UnmarshalFromString(str, entity)
 	if time.Now().Unix()-entity.TimeStamp >= 30*60 {
-		fmt.Println("失效")
 		_, _ = io.WriteString(w, "登录失效!")
 		return
 	}
 	conn := &Connect{ConnectTime: time.Now().Unix(), Uid: entity.Info.Uid}
 	//判断用户时候连到对的节点
-	if NODE == entity.ServerId {
-		fmt.Println("节点")
+	if NETServer == entity.ServerId {
 		_, _ = io.WriteString(w, "节点错误!")
 		return
 	}
 	err = conn.upgrade(w, r)
 	if err != nil {
-		fmt.Println("链接")
 		_, _ = io.WriteString(w, "链接失败!")
 		return
 	}
