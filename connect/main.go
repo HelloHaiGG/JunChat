@@ -5,6 +5,7 @@ import (
 	common "JunChat/common/discover"
 	"JunChat/common/ietcd"
 	"JunChat/config"
+	connect "JunChat/connect/protocols"
 	servers2 "JunChat/connect/servers"
 	"JunChat/queue/servers"
 	"flag"
@@ -55,6 +56,7 @@ func main() {
 
 	err = register.RunRpcServer(port, func(server *grpc.Server) {
 		common2.RegisterProtoDialServer(server, new(servers.QueueDialServer))
+		connect.RegisterPushMsgToConnectServer(server, new(servers2.PushMessageController))
 	})
 
 	if err != nil {
