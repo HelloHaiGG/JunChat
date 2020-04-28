@@ -478,6 +478,315 @@ func (m *ReportServerStatusRsp) GetCode() int32 {
 	return 0
 }
 
+//创建临时聊天室
+type CreateChatRoomParams struct {
+	UserId               string   `protobuf:"bytes,1,opt,name=UserId,proto3" json:"UserId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateChatRoomParams) Reset()         { *m = CreateChatRoomParams{} }
+func (m *CreateChatRoomParams) String() string { return proto.CompactTextString(m) }
+func (*CreateChatRoomParams) ProtoMessage()    {}
+func (*CreateChatRoomParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1de517c49d537f4b, []int{8}
+}
+func (m *CreateChatRoomParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateChatRoomParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateChatRoomParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateChatRoomParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateChatRoomParams.Merge(m, src)
+}
+func (m *CreateChatRoomParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateChatRoomParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateChatRoomParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateChatRoomParams proto.InternalMessageInfo
+
+func (m *CreateChatRoomParams) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type CreateChatRoomRsp struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	RoomId               string   `protobuf:"bytes,2,opt,name=RoomId,proto3" json:"RoomId,omitempty"`
+	ServerId             string   `protobuf:"bytes,3,opt,name=ServerId,proto3" json:"ServerId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateChatRoomRsp) Reset()         { *m = CreateChatRoomRsp{} }
+func (m *CreateChatRoomRsp) String() string { return proto.CompactTextString(m) }
+func (*CreateChatRoomRsp) ProtoMessage()    {}
+func (*CreateChatRoomRsp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1de517c49d537f4b, []int{9}
+}
+func (m *CreateChatRoomRsp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CreateChatRoomRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CreateChatRoomRsp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CreateChatRoomRsp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateChatRoomRsp.Merge(m, src)
+}
+func (m *CreateChatRoomRsp) XXX_Size() int {
+	return m.Size()
+}
+func (m *CreateChatRoomRsp) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateChatRoomRsp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateChatRoomRsp proto.InternalMessageInfo
+
+func (m *CreateChatRoomRsp) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *CreateChatRoomRsp) GetRoomId() string {
+	if m != nil {
+		return m.RoomId
+	}
+	return ""
+}
+
+func (m *CreateChatRoomRsp) GetServerId() string {
+	if m != nil {
+		return m.ServerId
+	}
+	return ""
+}
+
+//加入聊天室
+type JoinChatRoomParams struct {
+	RoomId               string   `protobuf:"bytes,1,opt,name=RoomId,proto3" json:"RoomId,omitempty"`
+	UserId               string   `protobuf:"bytes,2,opt,name=UserId,proto3" json:"UserId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *JoinChatRoomParams) Reset()         { *m = JoinChatRoomParams{} }
+func (m *JoinChatRoomParams) String() string { return proto.CompactTextString(m) }
+func (*JoinChatRoomParams) ProtoMessage()    {}
+func (*JoinChatRoomParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1de517c49d537f4b, []int{10}
+}
+func (m *JoinChatRoomParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *JoinChatRoomParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_JoinChatRoomParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *JoinChatRoomParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_JoinChatRoomParams.Merge(m, src)
+}
+func (m *JoinChatRoomParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *JoinChatRoomParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_JoinChatRoomParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_JoinChatRoomParams proto.InternalMessageInfo
+
+func (m *JoinChatRoomParams) GetRoomId() string {
+	if m != nil {
+		return m.RoomId
+	}
+	return ""
+}
+
+func (m *JoinChatRoomParams) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type JoinChatRoomRsp struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *JoinChatRoomRsp) Reset()         { *m = JoinChatRoomRsp{} }
+func (m *JoinChatRoomRsp) String() string { return proto.CompactTextString(m) }
+func (*JoinChatRoomRsp) ProtoMessage()    {}
+func (*JoinChatRoomRsp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1de517c49d537f4b, []int{11}
+}
+func (m *JoinChatRoomRsp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *JoinChatRoomRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_JoinChatRoomRsp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *JoinChatRoomRsp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_JoinChatRoomRsp.Merge(m, src)
+}
+func (m *JoinChatRoomRsp) XXX_Size() int {
+	return m.Size()
+}
+func (m *JoinChatRoomRsp) XXX_DiscardUnknown() {
+	xxx_messageInfo_JoinChatRoomRsp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_JoinChatRoomRsp proto.InternalMessageInfo
+
+func (m *JoinChatRoomRsp) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+//获取聊天室列表
+type GetChatRoomListParams struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetChatRoomListParams) Reset()         { *m = GetChatRoomListParams{} }
+func (m *GetChatRoomListParams) String() string { return proto.CompactTextString(m) }
+func (*GetChatRoomListParams) ProtoMessage()    {}
+func (*GetChatRoomListParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1de517c49d537f4b, []int{12}
+}
+func (m *GetChatRoomListParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetChatRoomListParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetChatRoomListParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetChatRoomListParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetChatRoomListParams.Merge(m, src)
+}
+func (m *GetChatRoomListParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *GetChatRoomListParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetChatRoomListParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetChatRoomListParams proto.InternalMessageInfo
+
+type GetChatRoomListRsp struct {
+	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	RoomIds              []string `protobuf:"bytes,2,rep,name=RoomIds,proto3" json:"RoomIds,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetChatRoomListRsp) Reset()         { *m = GetChatRoomListRsp{} }
+func (m *GetChatRoomListRsp) String() string { return proto.CompactTextString(m) }
+func (*GetChatRoomListRsp) ProtoMessage()    {}
+func (*GetChatRoomListRsp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1de517c49d537f4b, []int{13}
+}
+func (m *GetChatRoomListRsp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetChatRoomListRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetChatRoomListRsp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetChatRoomListRsp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetChatRoomListRsp.Merge(m, src)
+}
+func (m *GetChatRoomListRsp) XXX_Size() int {
+	return m.Size()
+}
+func (m *GetChatRoomListRsp) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetChatRoomListRsp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetChatRoomListRsp proto.InternalMessageInfo
+
+func (m *GetChatRoomListRsp) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *GetChatRoomListRsp) GetRoomIds() []string {
+	if m != nil {
+		return m.RoomIds
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*GetServerByIdParams)(nil), "core.GetServerByIdParams")
 	proto.RegisterType((*GetServerByIdRsp)(nil), "core.GetServerByIdRsp")
@@ -487,38 +796,53 @@ func init() {
 	proto.RegisterType((*ReportDisconnectRsp)(nil), "core.ReportDisconnectRsp")
 	proto.RegisterType((*ReportServerStatusParams)(nil), "core.ReportServerStatusParams")
 	proto.RegisterType((*ReportServerStatusRsp)(nil), "core.ReportServerStatusRsp")
+	proto.RegisterType((*CreateChatRoomParams)(nil), "core.CreateChatRoomParams")
+	proto.RegisterType((*CreateChatRoomRsp)(nil), "core.CreateChatRoomRsp")
+	proto.RegisterType((*JoinChatRoomParams)(nil), "core.JoinChatRoomParams")
+	proto.RegisterType((*JoinChatRoomRsp)(nil), "core.JoinChatRoomRsp")
+	proto.RegisterType((*GetChatRoomListParams)(nil), "core.GetChatRoomListParams")
+	proto.RegisterType((*GetChatRoomListRsp)(nil), "core.GetChatRoomListRsp")
 }
 
 func init() { proto.RegisterFile("center.proto", fileDescriptor_1de517c49d537f4b) }
 
 var fileDescriptor_1de517c49d537f4b = []byte{
-	// 414 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x93, 0xc1, 0xae, 0xd2, 0x40,
-	0x14, 0x86, 0x6f, 0xcb, 0xed, 0x8d, 0x1c, 0xb1, 0x21, 0x83, 0x92, 0x52, 0x4d, 0xd3, 0x74, 0x45,
-	0x62, 0xc2, 0x42, 0x57, 0xae, 0x44, 0x6a, 0x42, 0xba, 0xd0, 0x9a, 0x61, 0xe5, 0xce, 0xd2, 0x99,
-	0x60, 0x13, 0x99, 0x69, 0xa6, 0x83, 0x09, 0x6f, 0xe2, 0x7b, 0xf8, 0x12, 0x2e, 0x7d, 0x04, 0x83,
-	0x2f, 0x72, 0xd3, 0x99, 0x16, 0x0a, 0xb4, 0xec, 0xe6, 0xcc, 0xf9, 0xfb, 0xcd, 0x3f, 0xff, 0x9c,
-	0xc2, 0x20, 0xa5, 0x4c, 0x52, 0x31, 0xcb, 0x05, 0x97, 0x1c, 0xdd, 0xa7, 0x5c, 0xd0, 0xe0, 0x03,
-	0x8c, 0x96, 0x54, 0xae, 0xa8, 0xf8, 0x49, 0xc5, 0x62, 0x1f, 0x91, 0x2f, 0x89, 0x48, 0xb6, 0x05,
-	0xb2, 0xc1, 0x8c, 0x88, 0x63, 0xf8, 0xc6, 0xb4, 0x8f, 0xcd, 0x88, 0x20, 0x17, 0x9e, 0x84, 0x89,
-	0xa4, 0x1b, 0x2e, 0xf6, 0x4e, 0xcf, 0x37, 0xa6, 0x16, 0x3e, 0xd6, 0xc1, 0x02, 0x86, 0x67, 0x08,
-	0x5c, 0xe4, 0x08, 0xc1, 0x7d, 0xc8, 0x09, 0x55, 0x04, 0x0b, 0xab, 0x75, 0xc9, 0xd0, 0xa2, 0x88,
-	0x38, 0xa6, 0x22, 0x1f, 0xeb, 0x60, 0xae, 0x18, 0x9f, 0xe8, 0x76, 0x4d, 0x45, 0x51, 0x79, 0x18,
-	0x42, 0x0f, 0x67, 0xb5, 0x89, 0x72, 0x79, 0x93, 0xf0, 0x15, 0x9e, 0x9d, 0x08, 0xa5, 0x85, 0xe7,
-	0x60, 0x85, 0x7c, 0xc7, 0x64, 0xe5, 0x41, 0x17, 0x25, 0x34, 0x22, 0x85, 0x63, 0xfa, 0xbd, 0x12,
-	0x1a, 0x91, 0x02, 0xf9, 0xf0, 0x34, 0x66, 0x3f, 0x32, 0x46, 0xb5, 0x5a, 0xdf, 0xae, 0xb9, 0x15,
-	0x7c, 0x83, 0x31, 0xa6, 0x39, 0x17, 0xf2, 0x63, 0x56, 0xa4, 0x9c, 0x31, 0x9a, 0xca, 0xee, 0x98,
-	0xba, 0x0c, 0xde, 0x8c, 0xf0, 0x1d, 0x8c, 0x2e, 0x4f, 0xe8, 0x4a, 0xd1, 0x06, 0x33, 0xab, 0xe1,
-	0x66, 0x46, 0x82, 0xcf, 0xe0, 0xe8, 0x4f, 0xf5, 0x41, 0x2b, 0x99, 0xc8, 0x5d, 0x9d, 0x60, 0xd3,
-	0x8e, 0x71, 0x61, 0x67, 0x0c, 0x0f, 0x5a, 0xab, 0x58, 0x16, 0xae, 0xaa, 0xe0, 0x35, 0xbc, 0xb8,
-	0xe6, 0x75, 0x98, 0x79, 0xf3, 0xdb, 0x84, 0x41, 0xa8, 0x86, 0x4a, 0xab, 0xd1, 0x1c, 0xfa, 0xc7,
-	0x59, 0x40, 0x93, 0x59, 0x39, 0x62, 0xb3, 0x96, 0xf9, 0x72, 0xc7, 0x2d, 0x2d, 0x5c, 0xe4, 0xc1,
-	0x1d, 0x7a, 0x0f, 0xf6, 0x92, 0x4a, 0xcc, 0xf9, 0xb6, 0x7a, 0x4b, 0x74, 0xd2, 0x9e, 0xcd, 0x87,
-	0x3b, 0xba, 0xdc, 0xd7, 0x80, 0x18, 0x50, 0xcc, 0x1a, 0x39, 0xaa, 0xcb, 0xa0, 0x57, 0x5a, 0xdc,
-	0xfe, 0x8e, 0xee, 0xa4, 0xbd, 0x5b, 0x03, 0xed, 0x98, 0x69, 0x9b, 0xe1, 0xf7, 0x84, 0x6d, 0x28,
-	0xf2, 0x9a, 0xf2, 0xeb, 0xdc, 0xdd, 0x97, 0x5d, 0x7d, 0x05, 0x5c, 0x0c, 0xff, 0x1c, 0x3c, 0xe3,
-	0xef, 0xc1, 0x33, 0xfe, 0x1d, 0x3c, 0xe3, 0xd7, 0x7f, 0xef, 0x6e, 0xfd, 0xa0, 0x7e, 0xc9, 0xb7,
-	0x8f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x47, 0x00, 0x21, 0xa8, 0xa2, 0x03, 0x00, 0x00,
+	// 555 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x94, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0xc7, 0x63, 0xe7, 0x03, 0x3a, 0x0d, 0x26, 0x6c, 0x1a, 0xd7, 0x75, 0x91, 0x15, 0xad, 0x84,
+	0x54, 0x09, 0x29, 0x07, 0x38, 0x71, 0xa2, 0x8d, 0x2b, 0x45, 0x46, 0x40, 0x90, 0x2b, 0x0e, 0x88,
+	0x0b, 0x6e, 0xbc, 0x6a, 0x2d, 0x91, 0xdd, 0x68, 0xbd, 0x45, 0xca, 0x2b, 0xf0, 0x04, 0x3c, 0x12,
+	0x47, 0x1e, 0x01, 0x85, 0x17, 0x41, 0xf6, 0xae, 0x1d, 0x7f, 0xe6, 0xe6, 0xf1, 0x8c, 0x7f, 0xf3,
+	0x9f, 0xd1, 0x7f, 0x0c, 0xc3, 0x15, 0xa1, 0x82, 0xf0, 0xd9, 0x86, 0x33, 0xc1, 0x50, 0x6f, 0xc5,
+	0x38, 0xc1, 0x57, 0x30, 0x5e, 0x10, 0x71, 0x43, 0xf8, 0x0f, 0xc2, 0xe7, 0x5b, 0x2f, 0xfc, 0x14,
+	0xf0, 0x60, 0x1d, 0x23, 0x03, 0x74, 0x2f, 0xb4, 0xb4, 0xa9, 0x76, 0x71, 0xe4, 0xeb, 0x5e, 0x88,
+	0x6c, 0x78, 0xec, 0x06, 0x82, 0xdc, 0x31, 0xbe, 0xb5, 0xba, 0x53, 0xed, 0xa2, 0xef, 0xe7, 0x31,
+	0x9e, 0xc3, 0xa8, 0x84, 0xf0, 0xe3, 0x0d, 0x42, 0xd0, 0x73, 0x59, 0x48, 0x52, 0x42, 0xdf, 0x4f,
+	0x9f, 0x13, 0x86, 0x2c, 0xf2, 0x42, 0x4b, 0x4f, 0xc9, 0x79, 0x8c, 0x2f, 0x53, 0xc6, 0x07, 0xb2,
+	0xbe, 0x25, 0x3c, 0x56, 0x1a, 0x46, 0xd0, 0xf5, 0xa3, 0x4c, 0x44, 0xf2, 0x78, 0x90, 0xf0, 0x05,
+	0x9e, 0xec, 0x09, 0x89, 0x84, 0x13, 0xe8, 0xbb, 0xec, 0x81, 0x0a, 0xa5, 0x41, 0x06, 0x09, 0xd4,
+	0x0b, 0x63, 0x4b, 0x9f, 0x76, 0x13, 0xa8, 0x17, 0xc6, 0x68, 0x0a, 0xc7, 0x4b, 0xfa, 0x3d, 0xa2,
+	0x44, 0x56, 0xcb, 0xe9, 0x8a, 0xaf, 0xf0, 0x37, 0x30, 0x7d, 0xb2, 0x61, 0x5c, 0x5c, 0x47, 0xf1,
+	0x8a, 0x51, 0x4a, 0x56, 0xa2, 0x7d, 0x4d, 0x6d, 0x02, 0x0f, 0xae, 0xf0, 0x0d, 0x8c, 0xab, 0x1d,
+	0xda, 0xb6, 0x68, 0x80, 0x1e, 0x65, 0x70, 0x3d, 0x0a, 0xf1, 0x47, 0xb0, 0xe4, 0xa7, 0xb2, 0xd1,
+	0x8d, 0x08, 0xc4, 0x43, 0xb6, 0xc1, 0xa2, 0x1c, 0xad, 0x22, 0xc7, 0x84, 0x81, 0xac, 0x4d, 0x59,
+	0x7d, 0x5f, 0x45, 0xf8, 0x25, 0x4c, 0xea, 0xbc, 0x16, 0x31, 0x78, 0x06, 0x27, 0x2e, 0x27, 0x81,
+	0x20, 0xee, 0x7d, 0x20, 0x7c, 0xc6, 0xd6, 0xaa, 0xb1, 0x09, 0x83, 0xcf, 0x71, 0xa1, 0xad, 0x8a,
+	0xf0, 0x57, 0x78, 0x56, 0xae, 0x6f, 0x9b, 0xd2, 0x84, 0x41, 0x92, 0xce, 0xd7, 0xa8, 0xa2, 0xd2,
+	0x44, 0xdd, 0x8a, 0x03, 0xae, 0x01, 0xbd, 0x63, 0x11, 0xad, 0x4b, 0x51, 0x24, 0xad, 0x44, 0xda,
+	0x4b, 0xd4, 0x4b, 0x12, 0x5f, 0xc0, 0xd3, 0x22, 0xa5, 0x6d, 0xf2, 0x53, 0x98, 0x2c, 0x88, 0xc8,
+	0xaa, 0xde, 0x47, 0xb1, 0xb2, 0x04, 0x9e, 0x03, 0xaa, 0x24, 0xda, 0x66, 0xb4, 0xe0, 0x91, 0xd4,
+	0x92, 0xd9, 0x31, 0x0b, 0x5f, 0xfd, 0xec, 0xc1, 0xd0, 0x4d, 0x6f, 0x55, 0x0e, 0x87, 0x2e, 0xe1,
+	0x28, 0x3f, 0x31, 0x74, 0x36, 0x4b, 0x2e, 0x77, 0xd6, 0x70, 0xb6, 0xb6, 0xd9, 0x90, 0xf2, 0xe3,
+	0x0d, 0xee, 0xa0, 0xb7, 0x60, 0x2c, 0x48, 0x2a, 0x49, 0x9d, 0x08, 0xda, 0xd7, 0x96, 0xce, 0xce,
+	0x1e, 0x57, 0xdf, 0x4b, 0xc0, 0x12, 0xd0, 0x92, 0x16, 0xec, 0x99, 0x7a, 0x04, 0x3d, 0x97, 0xc5,
+	0xcd, 0xe7, 0x61, 0x9f, 0x35, 0x67, 0x33, 0xa0, 0xb1, 0xa4, 0x52, 0xa6, 0x7b, 0x1f, 0xd0, 0x3b,
+	0x82, 0x9c, 0x62, 0x79, 0xdd, 0xce, 0xf6, 0x79, 0x5b, 0x5e, 0x02, 0x17, 0x60, 0x94, 0xcd, 0x85,
+	0x6c, 0xf9, 0x41, 0x93, 0x45, 0xed, 0xd3, 0xa6, 0x9c, 0x04, 0x5d, 0xc1, 0xb0, 0x68, 0x01, 0x64,
+	0xc9, 0xd2, 0xba, 0xb9, 0xec, 0x49, 0x3d, 0x23, 0x11, 0x1e, 0x1c, 0x17, 0x5c, 0x80, 0xce, 0xf3,
+	0x9d, 0xd6, 0x1d, 0x63, 0x1f, 0x4a, 0xe2, 0xce, 0x7c, 0xf4, 0x7b, 0xe7, 0x68, 0x7f, 0x76, 0x8e,
+	0xf6, 0x77, 0xe7, 0x68, 0xbf, 0xfe, 0x39, 0x9d, 0xdb, 0x41, 0xfa, 0x03, 0x7f, 0xfd, 0x3f, 0x00,
+	0x00, 0xff, 0xff, 0xb9, 0xe4, 0x7a, 0x97, 0xd0, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -541,6 +865,12 @@ type CenterServerClient interface {
 	OnDisconnectReport(ctx context.Context, in *ReportDisconnectParams, opts ...grpc.CallOption) (*ReportDisconnectRsp, error)
 	//节点通知
 	OnServerChange(ctx context.Context, in *ReportServerStatusParams, opts ...grpc.CallOption) (*ReportServerStatusRsp, error)
+	//创建临时聊天室
+	CreateChatRoom(ctx context.Context, in *CreateChatRoomParams, opts ...grpc.CallOption) (*CreateChatRoomRsp, error)
+	//加入聊天室
+	JoinChatRoom(ctx context.Context, in *JoinChatRoomParams, opts ...grpc.CallOption) (*JoinChatRoomRsp, error)
+	//获取聊天室列表
+	GetChatRoom(ctx context.Context, in *GetChatRoomListParams, opts ...grpc.CallOption) (*GetChatRoomListParams, error)
 }
 
 type centerServerClient struct {
@@ -587,6 +917,33 @@ func (c *centerServerClient) OnServerChange(ctx context.Context, in *ReportServe
 	return out, nil
 }
 
+func (c *centerServerClient) CreateChatRoom(ctx context.Context, in *CreateChatRoomParams, opts ...grpc.CallOption) (*CreateChatRoomRsp, error) {
+	out := new(CreateChatRoomRsp)
+	err := c.cc.Invoke(ctx, "/core.CenterServer/CreateChatRoom", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centerServerClient) JoinChatRoom(ctx context.Context, in *JoinChatRoomParams, opts ...grpc.CallOption) (*JoinChatRoomRsp, error) {
+	out := new(JoinChatRoomRsp)
+	err := c.cc.Invoke(ctx, "/core.CenterServer/JoinChatRoom", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *centerServerClient) GetChatRoom(ctx context.Context, in *GetChatRoomListParams, opts ...grpc.CallOption) (*GetChatRoomListParams, error) {
+	out := new(GetChatRoomListParams)
+	err := c.cc.Invoke(ctx, "/core.CenterServer/GetChatRoom", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CenterServerServer is the server API for CenterServer service.
 type CenterServerServer interface {
 	//获取用户所在Server
@@ -597,6 +954,12 @@ type CenterServerServer interface {
 	OnDisconnectReport(context.Context, *ReportDisconnectParams) (*ReportDisconnectRsp, error)
 	//节点通知
 	OnServerChange(context.Context, *ReportServerStatusParams) (*ReportServerStatusRsp, error)
+	//创建临时聊天室
+	CreateChatRoom(context.Context, *CreateChatRoomParams) (*CreateChatRoomRsp, error)
+	//加入聊天室
+	JoinChatRoom(context.Context, *JoinChatRoomParams) (*JoinChatRoomRsp, error)
+	//获取聊天室列表
+	GetChatRoom(context.Context, *GetChatRoomListParams) (*GetChatRoomListParams, error)
 }
 
 // UnimplementedCenterServerServer can be embedded to have forward compatible implementations.
@@ -614,6 +977,15 @@ func (*UnimplementedCenterServerServer) OnDisconnectReport(ctx context.Context, 
 }
 func (*UnimplementedCenterServerServer) OnServerChange(ctx context.Context, req *ReportServerStatusParams) (*ReportServerStatusRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OnServerChange not implemented")
+}
+func (*UnimplementedCenterServerServer) CreateChatRoom(ctx context.Context, req *CreateChatRoomParams) (*CreateChatRoomRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateChatRoom not implemented")
+}
+func (*UnimplementedCenterServerServer) JoinChatRoom(ctx context.Context, req *JoinChatRoomParams) (*JoinChatRoomRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JoinChatRoom not implemented")
+}
+func (*UnimplementedCenterServerServer) GetChatRoom(ctx context.Context, req *GetChatRoomListParams) (*GetChatRoomListParams, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChatRoom not implemented")
 }
 
 func RegisterCenterServerServer(s *grpc.Server, srv CenterServerServer) {
@@ -692,6 +1064,60 @@ func _CenterServer_OnServerChange_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CenterServer_CreateChatRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateChatRoomParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CenterServerServer).CreateChatRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CenterServer/CreateChatRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CenterServerServer).CreateChatRoom(ctx, req.(*CreateChatRoomParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CenterServer_JoinChatRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(JoinChatRoomParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CenterServerServer).JoinChatRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CenterServer/JoinChatRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CenterServerServer).JoinChatRoom(ctx, req.(*JoinChatRoomParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CenterServer_GetChatRoom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChatRoomListParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CenterServerServer).GetChatRoom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.CenterServer/GetChatRoom",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CenterServerServer).GetChatRoom(ctx, req.(*GetChatRoomListParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CenterServer_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "core.CenterServer",
 	HandlerType: (*CenterServerServer)(nil),
@@ -711,6 +1137,18 @@ var _CenterServer_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OnServerChange",
 			Handler:    _CenterServer_OnServerChange_Handler,
+		},
+		{
+			MethodName: "CreateChatRoom",
+			Handler:    _CenterServer_CreateChatRoom_Handler,
+		},
+		{
+			MethodName: "JoinChatRoom",
+			Handler:    _CenterServer_JoinChatRoom_Handler,
+		},
+		{
+			MethodName: "GetChatRoom",
+			Handler:    _CenterServer_GetChatRoom_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1038,6 +1476,227 @@ func (m *ReportServerStatusRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *CreateChatRoomParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateChatRoomParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CreateChatRoomParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintCenter(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CreateChatRoomRsp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CreateChatRoomRsp) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CreateChatRoomRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.ServerId) > 0 {
+		i -= len(m.ServerId)
+		copy(dAtA[i:], m.ServerId)
+		i = encodeVarintCenter(dAtA, i, uint64(len(m.ServerId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.RoomId) > 0 {
+		i -= len(m.RoomId)
+		copy(dAtA[i:], m.RoomId)
+		i = encodeVarintCenter(dAtA, i, uint64(len(m.RoomId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Code != 0 {
+		i = encodeVarintCenter(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *JoinChatRoomParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *JoinChatRoomParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *JoinChatRoomParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintCenter(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.RoomId) > 0 {
+		i -= len(m.RoomId)
+		copy(dAtA[i:], m.RoomId)
+		i = encodeVarintCenter(dAtA, i, uint64(len(m.RoomId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *JoinChatRoomRsp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *JoinChatRoomRsp) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *JoinChatRoomRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Code != 0 {
+		i = encodeVarintCenter(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetChatRoomListParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetChatRoomListParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetChatRoomListParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetChatRoomListRsp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetChatRoomListRsp) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetChatRoomListRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.RoomIds) > 0 {
+		for iNdEx := len(m.RoomIds) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.RoomIds[iNdEx])
+			copy(dAtA[i:], m.RoomIds[iNdEx])
+			i = encodeVarintCenter(dAtA, i, uint64(len(m.RoomIds[iNdEx])))
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if m.Code != 0 {
+		i = encodeVarintCenter(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintCenter(dAtA []byte, offset int, v uint64) int {
 	offset -= sovCenter(v)
 	base := offset
@@ -1200,6 +1859,113 @@ func (m *ReportServerStatusRsp) Size() (n int) {
 	_ = l
 	if m.Code != 0 {
 		n += 1 + sovCenter(uint64(m.Code))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *CreateChatRoomParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovCenter(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *CreateChatRoomRsp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovCenter(uint64(m.Code))
+	}
+	l = len(m.RoomId)
+	if l > 0 {
+		n += 1 + l + sovCenter(uint64(l))
+	}
+	l = len(m.ServerId)
+	if l > 0 {
+		n += 1 + l + sovCenter(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *JoinChatRoomParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.RoomId)
+	if l > 0 {
+		n += 1 + l + sovCenter(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovCenter(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *JoinChatRoomRsp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovCenter(uint64(m.Code))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *GetChatRoomListParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *GetChatRoomListRsp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovCenter(uint64(m.Code))
+	}
+	if len(m.RoomIds) > 0 {
+		for _, s := range m.RoomIds {
+			l = len(s)
+			n += 1 + l + sovCenter(uint64(l))
+		}
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2060,6 +2826,579 @@ func (m *ReportServerStatusRsp) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCenter(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CreateChatRoomParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCenter
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateChatRoomParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateChatRoomParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCenter(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CreateChatRoomRsp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCenter
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateChatRoomRsp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateChatRoomRsp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ServerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ServerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCenter(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *JoinChatRoomParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCenter
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: JoinChatRoomParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: JoinChatRoomParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCenter(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *JoinChatRoomRsp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCenter
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: JoinChatRoomRsp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: JoinChatRoomRsp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCenter(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetChatRoomListParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCenter
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetChatRoomListParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetChatRoomListParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCenter(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetChatRoomListRsp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCenter
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetChatRoomListRsp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetChatRoomListRsp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomIds", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCenter
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCenter
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomIds = append(m.RoomIds, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipCenter(dAtA[iNdEx:])

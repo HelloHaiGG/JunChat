@@ -17,12 +17,11 @@ import (
 func Router() *gin.Engine {
 	r := gin.Default()
 
-
-
 	r.Use(Cors())
 	r.POST("/register", HandlerRegister)
 	r.POST("/login", HandlerLogin)
 	r.POST("/send", SendMsg)
+	r.POST("/room",CreateRoom)
 
 	return r
 }
@@ -46,7 +45,6 @@ func Cors() gin.HandlerFunc {
 		c.Next()
 	}
 }
-
 
 //用户注册
 func HandlerRegister(c *gin.Context) {
@@ -162,5 +160,11 @@ func SendMsg(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusOK, &gin.H{})
+	c.JSON(http.StatusOK, &gin.H{
+		"Code": common.Success,
+	})
+}
+
+func CreateRoom(c *gin.Context)  {
+
 }

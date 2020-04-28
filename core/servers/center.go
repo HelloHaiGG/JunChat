@@ -54,7 +54,7 @@ func (p *CenterServerController) OnServerChange(cxt context.Context, in *core.Re
 		return &core.ReportServerStatusRsp{Code: common2.ParamsErr}, nil
 	}
 	exist, _ := iredis.RedisCli.HExists(common2.LiveOnServer, in.ServerId).Result()
-	if (!exist && in.Status == common2.NodeStop)||(exist && in.Status == common2.NodeStart) {
+	if (!exist && in.Status == common2.NodeStop) || (exist && in.Status == common2.NodeStart) {
 		return &core.ReportServerStatusRsp{Code: common2.Success}, nil
 	}
 	if in.Status == common2.NodeStart && !exist {
@@ -71,4 +71,14 @@ func (p *CenterServerController) OnServerChange(cxt context.Context, in *core.Re
 		return &core.ReportServerStatusRsp{Code: common2.Success}, nil
 	}
 	return &core.ReportServerStatusRsp{Code: common2.AddNodeFailed}, nil
+}
+
+func (p *CenterServerController) CreateChatRoom(ctx context.Context, in *core.CreateChatRoomParams) (*core.CreateChatRoomRsp, error) {
+	return nil, nil
+}
+func (p *CenterServerController) JoinChatRoom(ctx context.Context, in *core.JoinChatRoomParams) (*core.JoinChatRoomRsp, error) {
+	return nil, nil
+}
+func (p *CenterServerController) GetChatRoom(ctx context.Context, in *core.GetChatRoomListParams) (*core.GetChatRoomListParams, error) {
+	return nil, nil
 }

@@ -47,6 +47,37 @@ message ReportServerStatusRsp{
   int32 Code = 1;
 }
 
+//创建临时聊天室
+message CreateChatRoomParams {
+  string UserId = 1;//创建者
+}
+
+message CreateChatRoomRsp {
+  int32 Code = 1;
+  string RoomId = 2;
+  string ServerId = 3;
+}
+
+//加入聊天室
+message JoinChatRoomParams{
+  string RoomId = 1;
+  string UserId = 2;
+}
+
+message JoinChatRoomRsp{
+  int32 Code = 1;
+}
+
+//获取聊天室列表
+message GetChatRoomListParams{
+
+}
+
+message GetChatRoomListRsp{
+  int32 Code = 1;
+  repeated string RoomIds = 2;
+}
+
 service CenterServer {
   //获取用户所在Server
   rpc GetServer (GetServerByIdParams) returns (GetServerByIdRsp) {
@@ -59,6 +90,18 @@ service CenterServer {
   }
   //节点通知
   rpc OnServerChange  (ReportServerStatusParams) returns (ReportServerStatusRsp){
+  }
+  //创建临时聊天室
+  rpc CreateChatRoom (CreateChatRoomParams) returns (CreateChatRoomRsp){
+  }
+
+  //加入聊天室
+  rpc JoinChatRoom (JoinChatRoomParams) returns (JoinChatRoomRsp){
+
+  }
+
+  //获取聊天室列表
+  rpc GetChatRoom (GetChatRoomListParams) returns (GetChatRoomListParams){
 
   }
 }

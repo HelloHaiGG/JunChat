@@ -2,12 +2,10 @@ package servers
 
 import (
 	"JunChat/common"
-	common2 "JunChat/common/discover"
 	"JunChat/common/iredis"
 	"JunChat/config"
 	"JunChat/core/models"
 	"JunChat/utils"
-	"context"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -16,7 +14,7 @@ func InitDispatchMap() {
 	_, _ = iredis.RedisCli.Del(keys...).Result()
 	keys, _ = iredis.RedisCli.HKeys(common.LiveOnServer).Result()
 	for k, v := range config.APPConfig.JC.Nodes {
-		if !DialConnectServer(v) {
+		if !utils.Telnet("127.0.0.1", v) {
 			continue
 		} else {
 			ok, _ := iredis.RedisCli.HExists(common.LiveOnServer, k).Result()
@@ -78,21 +76,4 @@ func backUp(uid, server string) error {
 	str, _ := jsoniter.MarshalToString(users)
 	_, err = iredis.RedisCli.HSet(common.LiveOnServer, server, str).Result()
 	return err
-}
-
-//先检查服务是否启动
-func DialConnectServer(port string) bool {
-	conn := common2.GetServerConnByHost("127.0.0.1", port)
-	client := common.NewProtoDialClient(conn)
-
-	//3s
-	//cxt, _ := context.WithTimeout(context.Background(), time.Second*3)
-
-	rsp, err := client.TryDial(context.Background(), &common.Request{
-		Ping: "Core Server",
-	})
-	if err != nil || rsp.Code != common.Success {
-		return false
-	}
-	return true
 }

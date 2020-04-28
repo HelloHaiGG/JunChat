@@ -3,6 +3,7 @@ package utils
 import (
 	"log"
 	"net"
+	"time"
 )
 
 func GetInternalIp() string {
@@ -20,4 +21,18 @@ func GetInternalIp() string {
 	}
 	log.Println("Get Internal Ip Fail.")
 	return ""
+}
+
+func Telnet(ip, port string) bool {
+	addr := net.JoinHostPort(ip, port)
+	//telnet
+	conn, err := net.DialTimeout("tcp", addr, 3*time.Second)
+	if err != nil {
+		return false
+	}
+	if conn != nil {
+		_ = conn.Close()
+		return true
+	}
+	return false
 }

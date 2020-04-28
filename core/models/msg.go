@@ -23,6 +23,7 @@ func (p *MsgWrap) WrapNode(in *core.SendMsgParams) (string, error) {
 	var server string
 	p.MessageBody = in.Msg
 	if p.MsgType == common.RoomChat {
+
 	}
 	if p.MsgType == common.SingleChat {
 		server, err = GetOnlineServer(p.Receiver)
