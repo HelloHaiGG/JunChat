@@ -60,9 +60,9 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 
 	//调度
 	serverId, err := Dispatch(user.Uid)
-	if err != nil {
+	if err != nil || serverId == "" {
 		return &core.LoginRsp{
-			Code: common.InternalErr,
+			Code: common.NoUsableServer,
 		}, nil
 	}
 
@@ -79,10 +79,12 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 	}
 
 	return &core.LoginRsp{
-		Code:     common.Success,
+		Code:       common.Success,
 		ServerPort: config.APPConfig.JC.Nodes[serverId],
-		Name:     user.UserName,
-		Token:    session,
+		UId:        user.Uid,
+		Name:       user.UserName,
+		Token:      session,
+		ServerId:serverId,
 	}, nil
 
 }

@@ -4,30 +4,32 @@ package core;
 
 
 message LoginParams {
-    string UName = 1;
-    string Uid = 2;
-    string Password = 3;
+  string UName = 1;
+  string Uid = 2;
+  string Password = 3;
 }
 
 message LoginRsp {
-    int32 Code = 1;
-    string Name = 4;
-    string Token = 2;
-    string ServerPort = 3;
+  int32 Code = 1;
+  string Name = 4;
+  string Token = 2;
+  string ServerPort = 3;
+  string UId = 5;
+  string ServerId = 6;
 }
 
 message RegisterParams {
-    string UName = 1;
-    string Password = 2;
+  string UName = 1;
+  string Password = 2;
 }
 message RegisterRsp {
-    int32 Code = 1;
-    string Uid = 2;
+  int32 Code = 1;
+  string Uid = 2;
 }
 
 service UserController {
-    rpc UserLogin (LoginParams) returns (LoginRsp) {
-    }
-    rpc RegisterUser (RegisterParams) returns (RegisterRsp) {
-    }
+  rpc UserLogin (LoginParams) returns (LoginRsp) {
+  }
+  rpc RegisterUser (RegisterParams) returns (RegisterRsp) {
+  }
 }

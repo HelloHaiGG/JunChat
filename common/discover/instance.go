@@ -6,6 +6,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/balancer/roundrobin"
 	"log"
+	"net"
 	"sync"
 	"time"
 )
@@ -36,4 +37,19 @@ func NewRpcConn(server string) *grpc.ClientConn {
 	}
 	global.Store(server, conn)
 	return conn
+}
+
+//通过固定ID,端口,获取链接对象
+func GetServerConnByHost(host, port string) *grpc.ClientConn {
+	ip := net.JoinHostPort(host, port)
+	if conn, ok := global.Load(ip); !ok {
+		c, err := grpc.Dial(ip, grpc.WithInsecure())
+		if err != nil {
+			log.Println("Dial RPC Server Err:", err)
+		}
+		global.Load(c)
+		return c
+	} else {
+		return conn.(*grpc.ClientConn)
+	}
 }

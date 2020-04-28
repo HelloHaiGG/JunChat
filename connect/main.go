@@ -7,7 +7,8 @@ import (
 	"JunChat/config"
 	connect "JunChat/connect/protocols"
 	servers2 "JunChat/connect/servers"
-	"JunChat/queue/servers"
+	core "JunChat/core/protocols"
+	"context"
 	"flag"
 	"google.golang.org/grpc"
 	"log"
@@ -29,7 +30,7 @@ func main() {
 	//通过命令控制运行端口
 	RPCServer = flag.String("RPC", "connect-1", "RPC节点")
 	NETServer = flag.String("NET", "chat-1", "NET节点")
-	servers2.NETServer = *RPCServer
+	servers2.NETServer = *NETServer
 	flag.Parse()
 	rpcPort, ok := config.APPConfig.CN.Nodes[*RPCServer]
 	if !ok {
@@ -42,6 +43,14 @@ func main() {
 
 	go servers2.NetConnect(netPort)
 
+	//向Core层汇报
+	conn := common.GetServerConn(config.APPConfig.Servers.Core)
+	client := core.NewCenterServerClient(conn)
+	rsp, err := client.OnServerChange(context.Background(), &core.ReportServerStatusParams{ServerId: *NETServer, Status: common2.NodeStart})
+	if err != nil || rsp.Code != common2.Success {
+		log.Println("Report Server Status Err:", err)
+	}
+
 	//注册服务
 	register, err := common.NewRegisterSvr(ietcd.Client, int64(config.APPConfig.Grpc.CallTimeOut))
 	if err != nil {
@@ -53,7 +62,7 @@ func main() {
 	}
 
 	err = register.RunRpcServer(rpcPort, func(server *grpc.Server) {
-		common2.RegisterProtoDialServer(server, new(servers.QueueDialServer))
+		common2.RegisterProtoDialServer(server, new(servers2.ConnectDialServer))
 		connect.RegisterPushMsgToConnectServer(server, new(servers2.PushMessageController))
 	})
 

@@ -69,6 +69,7 @@ func (p *RegisterSvr) ListenKeepAliveResp() {
 		case resp := <-p.keepAliveChan:
 			if resp == nil {
 				log.Println("Etcd 续约失败.")
+				time.Sleep(10 * time.Second)
 			}
 		}
 	}

@@ -37,6 +37,16 @@ message ReportDisconnectRsp {
   string id = 2;
 }
 
+//汇报节点活跃信息
+message ReportServerStatusParams{
+  string ServerId = 1;
+  int32 Status = 2;
+}
+
+message ReportServerStatusRsp{
+  int32 Code = 1;
+}
+
 service CenterServer {
   //获取用户所在Server
   rpc GetServer (GetServerByIdParams) returns (GetServerByIdRsp) {
@@ -44,7 +54,11 @@ service CenterServer {
   //获取房间内成员
   rpc GetRoomMembers (GetMembersParams) returns (GetMembersRsp) {
   }
-  //汇报
-  rpc Report (ReportDisconnectParams) returns (ReportDisconnectRsp) {
+  //断线汇报
+  rpc OnDisconnectReport (ReportDisconnectParams) returns (ReportDisconnectRsp) {
+  }
+  //节点通知
+  rpc OnServerChange  (ReportServerStatusParams) returns (ReportServerStatusRsp){
+
   }
 }

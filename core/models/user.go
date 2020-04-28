@@ -21,7 +21,7 @@ func (p *UserInfo) FindByUid() error {
 	if p.Uid == "" {
 		return errors.New("Uid 不能为空. ")
 	}
-	if err := igorm.DbClient.Model(UserInfo{}).First(p).Error; err != nil {
+	if err := igorm.DbClient.Model(UserInfo{}).Where("uid = ?", p.Uid).Scan(p).Error; err != nil {
 		return err
 	}
 	return nil
@@ -31,7 +31,7 @@ func (p *UserInfo) FindByName() error {
 	if p.UserName == "" {
 		return errors.New("User Name 不能为空. ")
 	}
-	if err := igorm.DbClient.Model(UserInfo{}).First(p).Error; err != nil {
+	if err := igorm.DbClient.Model(UserInfo{}).Where("user_name = ?", p.UserName).Scan(p).Error; err != nil {
 		return err
 	}
 	return nil

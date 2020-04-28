@@ -2,41 +2,40 @@ package servers
 
 import (
 	"JunChat/common"
+	common2 "JunChat/common/discover"
 	"JunChat/common/iredis"
 	"JunChat/config"
 	"JunChat/core/models"
 	"JunChat/utils"
+	"context"
 	jsoniter "github.com/json-iterator/go"
-	"sync"
 )
-
-//对节点上的链接进行计数
-var DispatchMap sync.Map
 
 func InitDispatchMap() {
 	keys, _ := iredis.RedisCli.Keys("JUN:CHAT:SESSION:*").Result()
 	_, _ = iredis.RedisCli.Del(keys...).Result()
 	keys, _ = iredis.RedisCli.HKeys(common.LiveOnServer).Result()
-	for k, _ := range config.APPConfig.JC.Nodes {
-		DispatchMap.Store(k, 0)
+	for k, v := range config.APPConfig.JC.Nodes {
+		if !DialConnectServer(v) {
+			continue
+		} else {
+			ok, _ := iredis.RedisCli.HExists(common.LiveOnServer, k).Result()
+			if ok {
+				continue
+			}
+		}
 		_, _ = iredis.RedisCli.HMSet(common.LiveOnServer, map[string]interface{}{
-			k:"",
+			k: "",
 		}).Result()
 	}
 }
 
 func Dispatch(uid string) (string, error) {
 	serverId, err := models.GetOnlineServer(uid)
-	if err != nil {
-		return "", err
-	}
-	if serverId != "" {
-		return serverId, nil
+	if err != nil || serverId != "" {
+		return serverId, err
 	}
 	serverId = getMinLoad()
-	value, _ := DispatchMap.Load(serverId)
-	count := value.(int)
-	DispatchMap.Store(serverId, count)
 	return serverId, backUp(uid, serverId)
 }
 
@@ -44,16 +43,21 @@ func Dispatch(uid string) (string, error) {
 func getMinLoad() string {
 	var server string
 	var min int
-	DispatchMap.Range(func(key, value interface{}) bool {
-		if value.(int) <= min {
-			min = value.(int)
-			server = key.(string)
+	result, _ := iredis.RedisCli.HGetAll(common.LiveOnServer).Result()
+	for key, value := range result {
+		if value == "" {
+			return key
+		} else {
+			users := models.Users{}
+			_ = jsoniter.UnmarshalFromString(value, users)
+			if len(users.Ids) <= min {
+				min = len(users.Ids)
+				server = key
+			}
 		}
-		return true
-	})
+	}
 	return server
 }
-
 
 //将用户所在server备份到redis
 func backUp(uid, server string) error {
@@ -74,4 +78,21 @@ func backUp(uid, server string) error {
 	str, _ := jsoniter.MarshalToString(users)
 	_, err = iredis.RedisCli.HSet(common.LiveOnServer, server, str).Result()
 	return err
+}
+
+//先检查服务是否启动
+func DialConnectServer(port string) bool {
+	conn := common2.GetServerConnByHost("127.0.0.1", port)
+	client := common.NewProtoDialClient(conn)
+
+	//3s
+	//cxt, _ := context.WithTimeout(context.Background(), time.Second*3)
+
+	rsp, err := client.TryDial(context.Background(), &common.Request{
+		Ping: "Core Server",
+	})
+	if err != nil || rsp.Code != common.Success {
+		return false
+	}
+	return true
 }

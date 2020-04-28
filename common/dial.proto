@@ -13,4 +13,5 @@ message Request {
 
 message Response {
     string Pong = 1;
+    int32 Code = 2;
 }

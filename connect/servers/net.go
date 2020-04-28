@@ -6,13 +6,11 @@ import (
 	"JunChat/config"
 	"JunChat/connect/models"
 	core "JunChat/core/protocols"
-	"JunChat/utils"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/gorilla/websocket"
-	jsoniter "github.com/json-iterator/go"
 	"io"
 	"log"
 	"net"
@@ -39,51 +37,44 @@ func NetConnect(port string) {
 }
 
 func HandleReq(w http.ResponseWriter, r *http.Request) {
-	//解析TOKEN 验证玩家信息
-	token := r.Header.Get("Jun-Token")
-	if token == "" {
-		fmt.Println("未登录")
-		_, _ = io.WriteString(w, "未登录!")
-		return
-	}
-	str, err := utils.AesDecrypt(token, utils.KEY)
-	if err != nil {
-		_, _ = io.WriteString(w, "认证失败!")
-		return
-	}
-	entity := &models.TokenEntity{}
-	_ = jsoniter.UnmarshalFromString(str, entity)
-	if time.Now().Unix()-entity.TimeStamp >= 30*60 {
-		_, _ = io.WriteString(w, "登录失效!")
-		return
-	}
-	conn := &Connect{ConnectTime: time.Now().Unix(), Uid: entity.Info.Uid}
-	//判断用户时候连到对的节点
-	if NETServer == entity.ServerId {
-		_, _ = io.WriteString(w, "节点错误!")
-		return
-	}
-	err = conn.upgrade(w, r)
-	if err != nil {
+	conn := &Connect{ConnectTime: time.Now().Unix()}
+	userId, err := conn.upgrade(w, r)
+	if err != nil || userId == "" {
 		_, _ = io.WriteString(w, "链接失败!")
 		return
 	}
+	conn.Uid = userId
 	//存储玩家链接
 	HandleConn.Store(conn.Uid, conn)
+	return
 }
 
 //http 升级为 websocket
-func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) error {
+func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) (string, error) {
+	//解析TOKEN 验证用户信息
+	protocols := websocket.Subprotocols(r)
+	if len(protocols) < 2 {
+		_, _ = io.WriteString(w, "Sub Protocol!")
+		return "",nil
+	}
+	serverId := protocols[0]
+	userId := protocols[1]
+	//判断用户时候连到对的节点
+	if NETServer != serverId {
+		_, _ = io.WriteString(w, "节点错误!")
+		return "", nil
+	}
+
 	//将http请求升级为websocket
 	upgrade := &websocket.Upgrader{CheckOrigin: func(r *http.Request) bool {
 		return true
-	}}
+	},Subprotocols:protocols}
 	conn, err := upgrade.Upgrade(w, r, nil)
 	if err != nil {
-		return err
+		return "", err
 	}
 	p.Conn = conn
-	return nil
+	return userId, nil
 }
 
 //监听socket链接心跳
@@ -116,7 +107,7 @@ func (p *Connect) CloseConn() error {
 
 	conn := common.GetServerConn(config.APPConfig.Servers.Core)
 	client := core.NewCenterServerClient(conn)
-	rsp, err := client.Report(context.Background(), &core.ReportDisconnectParams{
+	rsp, err := client.OnDisconnectReport(context.Background(), &core.ReportDisconnectParams{
 		Id:       p.Uid,
 		Category: 0,
 	})

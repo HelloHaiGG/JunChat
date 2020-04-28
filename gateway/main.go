@@ -27,7 +27,7 @@ func main() {
 
 	//用户网关服务
 	junServer := &http.Server{
-		Addr:         "127.0.0.1:59277", //及鲜app
+		Addr:         "0.0.0.0:59277", //及鲜app
 		Handler:      router.Router(),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,

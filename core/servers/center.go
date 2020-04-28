@@ -28,10 +28,10 @@ func (p *CenterServerController) GetRoomMembers(ctx context.Context, in *core.Ge
 	return nil, nil
 }
 
-func (p *CenterServerController) Report(ctx context.Context, in *core.ReportDisconnectParams) (*core.ReportDisconnectRsp, error) {
+func (p *CenterServerController) OnDisconnectReport(ctx context.Context, in *core.ReportDisconnectParams) (*core.ReportDisconnectRsp, error) {
 
 	//去除redis中的记录
-	str, err := iredis.RedisCli.HGet("SERVER:USE", in.ServerId).Result()
+	str, err := iredis.RedisCli.HGet(common2.LiveOnServer, in.ServerId).Result()
 	if err != nil {
 		return &core.ReportDisconnectRsp{Code: common2.ServeNotLive}, nil
 	}
@@ -48,4 +48,27 @@ func (p *CenterServerController) Report(ctx context.Context, in *core.ReportDisc
 		return &core.ReportDisconnectRsp{Code: common2.RemoveUserIdFailed}, nil
 	}
 	return &core.ReportDisconnectRsp{Code: common2.Success, Id: in.Id}, nil
+}
+func (p *CenterServerController) OnServerChange(cxt context.Context, in *core.ReportServerStatusParams) (*core.ReportServerStatusRsp, error) {
+	if in.ServerId == "" {
+		return &core.ReportServerStatusRsp{Code: common2.ParamsErr}, nil
+	}
+	exist, _ := iredis.RedisCli.HExists(common2.LiveOnServer, in.ServerId).Result()
+	if (!exist && in.Status == common2.NodeStop)||(exist && in.Status == common2.NodeStart) {
+		return &core.ReportServerStatusRsp{Code: common2.Success}, nil
+	}
+	if in.Status == common2.NodeStart && !exist {
+		ok, err := iredis.RedisCli.HSet(common2.LiveOnServer, in.ServerId, "").Result()
+		if err != nil || !ok {
+			return &core.ReportServerStatusRsp{Code: common2.AddNodeFailed}, nil
+		}
+		return &core.ReportServerStatusRsp{Code: common2.Success}, nil
+	} else if in.Status == common2.NodeStop && exist {
+		_, err := iredis.RedisCli.HDel(common2.LiveOnServer, in.ServerId).Result()
+		if err != nil {
+			return &core.ReportServerStatusRsp{Code: common2.AddNodeFailed}, nil
+		}
+		return &core.ReportServerStatusRsp{Code: common2.Success}, nil
+	}
+	return &core.ReportServerStatusRsp{Code: common2.AddNodeFailed}, nil
 }
