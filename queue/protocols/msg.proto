@@ -8,7 +8,13 @@ message MessageBody {
   repeated string Urls = 3; //超链接数组
   bytes FileBody = 4; //文件
   int64 SendTime = 5; //发送时间
-  string Sender = 6; //发送人
-  string Receiver = 7; //接受者
+  UserItem Sender = 6; //发送人
+  UserItem Receiver = 7; //接受者
   int32 MsgType = 8; //消息类型
+}
+
+
+message UserItem {
+  string UserName = 1;
+  string Uid = 2;
 }

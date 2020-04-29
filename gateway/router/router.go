@@ -21,7 +21,7 @@ func Router() *gin.Engine {
 	r.POST("/register", HandlerRegister)
 	r.POST("/login", HandlerLogin)
 	r.POST("/send", SendMsg)
-	r.POST("/room",CreateRoom)
+	r.POST("/users", GetAllUserList)
 
 	return r
 }
@@ -149,8 +149,8 @@ func SendMsg(c *gin.Context) {
 		Text:     params.Msg,
 		Urls:     params.Urls,
 		SendTime: params.SendTime,
-		Sender:   params.Sender,
-		Receiver: entity.Info.Uid,
+		Sender:   &core.UserItem{Uid: entity.Info.Uid},
+		Receiver: &core.UserItem{Uid: params.Receiver},
 		MsgType:  params.Category,
 	}})
 	if err != nil || rsp.Code != common.Success {
@@ -165,6 +165,18 @@ func SendMsg(c *gin.Context) {
 	})
 }
 
-func CreateRoom(c *gin.Context)  {
-
+func GetAllUserList(c *gin.Context) {
+	conn := common2.GetServerConn(config.APPConfig.Servers.Core)
+	client := core.NewUserControllerClient(conn)
+	rsp, err := client.GetAllUserList(context.Background(), &core.GetAllUserListParams{})
+	if err != nil || rsp.Code != common.Success {
+		c.JSON(http.StatusOK, &gin.H{
+			"Code": common.GetAllUsersErr,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, &gin.H{
+		"Code":  common.Success,
+		"Items": rsp.Items,
+	})
 }

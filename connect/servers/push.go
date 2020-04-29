@@ -22,10 +22,10 @@ func (p *PushMessageController) PushMsgToConnectServer(ctx context.Context, in *
 	//	return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
 	//}
 	//获取用户链接
-	if in.Msg.Receiver == "" {
+	if in.Msg.Receiver.Uid == "" {
 		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
 	}
-	conn, ok := HandleConn.Load(in.Msg.Receiver)
+	conn, ok := HandleConn.Load(in.Msg.Receiver.Uid)
 	if !ok {
 		log.Error("用户未链接.")
 		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil

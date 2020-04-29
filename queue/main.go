@@ -4,6 +4,7 @@ import (
 	common2 "JunChat/common"
 	common "JunChat/common/discover"
 	"JunChat/common/ietcd"
+	"JunChat/common/iredis"
 	"JunChat/config"
 	"JunChat/queue/servers"
 	"google.golang.org/grpc"
@@ -21,6 +22,9 @@ func main() {
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
 
+	iredis.Init(&iredis.IOptions{DialTimeOut: 10 * time.Second, MaxConnAge: 10 * time.Second})
+
+	go servers.Start()
 	//注册服务
 	register, err := common.NewRegisterSvr(ietcd.Client, int64(config.APPConfig.Grpc.CallTimeOut))
 	if err != nil {

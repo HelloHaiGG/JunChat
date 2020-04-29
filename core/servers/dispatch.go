@@ -13,7 +13,7 @@ func InitDispatchMap() {
 	keys, _ := iredis.RedisCli.Keys("JUN:CHAT:SESSION:*").Result()
 	_, _ = iredis.RedisCli.Del(keys...).Result()
 	keys, _ = iredis.RedisCli.HKeys(common.LiveOnServer).Result()
-	for k, v := range config.APPConfig.JC.Nodes {
+	for k, v := range config.APPConfig.CN.Nodes {
 		if !utils.Telnet("127.0.0.1", v) {
 			continue
 		} else {

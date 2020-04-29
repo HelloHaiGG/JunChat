@@ -1,16 +1,16 @@
 package servers
 
 import (
-	"JunChat/common"
 	"JunChat/queue/modles"
 	jsoniter "github.com/json-iterator/go"
 )
 
 var Listener MsgListener
 
-func init() {
+func Start() {
 	Listener.Init()
-	Listener.ListenStart()
+	go Listener.ListenStart()
+	go MsgDistribute()
 }
 
 func MsgDistribute() {
@@ -22,10 +22,7 @@ func MsgDistribute() {
 			}
 			body := &modles.MsgWrap{}
 			_ = jsoniter.UnmarshalFromString(msg, body)
-			if body.MsgType == common.SingleChat {
-				body.PushMsg()
-				continue
-			}
+			body.PushMsg()
 		}
 	}
 }

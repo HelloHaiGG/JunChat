@@ -46,6 +46,7 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 			Code: int32(status),
 		}, nil
 	}
+	user.Password = in.Password
 	err = user.LoginByUid()
 	if err == gorm.ErrRecordNotFound {
 		status = common.UserDoesNotExistOrPasswordErr
@@ -84,7 +85,7 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 		UId:        user.Uid,
 		Name:       user.UserName,
 		Token:      session,
-		ServerId:serverId,
+		ServerId:   serverId,
 	}, nil
 
 }
@@ -123,4 +124,18 @@ func (p *UserController) RegisterUser(ctx context.Context, in *core.RegisterPara
 func SetToken(session string, id string) error {
 	_, err := iredis.RedisCli.Set(fmt.Sprintf("JUN:CHAT:SESSION:%s", id), session, 30*60*time.Second).Result()
 	return err
+}
+
+func (p *UserController) GetAllUserList(ctx context.Context, in *core.GetAllUserListParams) (*core.GetAllUserListRsp, error) {
+	list, err := models.GetAllUsersList()
+	if err != nil {
+		return &core.GetAllUserListRsp{
+			Code: common.Success,
+		}, nil
+	}
+	items := make([]*core.UserItem, len(list))
+	for i, info := range list {
+		items[i] = &core.UserItem{Uid:info.Uid,UserName:info.UserName}
+	}
+	return &core.GetAllUserListRsp{Code: common.Success, Items: items}, nil
 }

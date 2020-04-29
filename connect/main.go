@@ -28,8 +28,8 @@ func main() {
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
 	//通过命令控制运行端口
-	RPCServer = flag.String("RPC", "connect-1", "RPC节点")
-	NETServer = flag.String("NET", "chat-1", "NET节点")
+	RPCServer = flag.String("RPC", "node-1", "RPC节点")
+	NETServer = flag.String("NET", "node-1", "NET节点")
 	servers2.NETServer = *NETServer
 	flag.Parse()
 	rpcPort, ok := config.APPConfig.CN.Nodes[*RPCServer]
@@ -46,7 +46,7 @@ func main() {
 	//向Core层汇报
 	conn := common.GetServerConn(config.APPConfig.Servers.Core)
 	client := core.NewCenterServerClient(conn)
-	rsp, err := client.OnServerChange(context.Background(), &core.ReportServerStatusParams{ServerId: *NETServer, Status: common2.NodeStart})
+	rsp, err := client.OnServerChange(context.Background(), &core.ReportServerStatusParams{ServerId: *RPCServer, Status: common2.NodeStart})
 	if err != nil || rsp.Code != common2.Success {
 		log.Println("Report Server Status Err:", err)
 	}

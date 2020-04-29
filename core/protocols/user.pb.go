@@ -286,36 +286,194 @@ func (m *RegisterRsp) GetUid() string {
 	return ""
 }
 
+//获取用户列表
+type GetAllUserListParams struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllUserListParams) Reset()         { *m = GetAllUserListParams{} }
+func (m *GetAllUserListParams) String() string { return proto.CompactTextString(m) }
+func (*GetAllUserListParams) ProtoMessage()    {}
+func (*GetAllUserListParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{4}
+}
+func (m *GetAllUserListParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetAllUserListParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetAllUserListParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetAllUserListParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllUserListParams.Merge(m, src)
+}
+func (m *GetAllUserListParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *GetAllUserListParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllUserListParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllUserListParams proto.InternalMessageInfo
+
+type GetAllUserListRsp struct {
+	Code                 int32       `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	Items                []*UserItem `protobuf:"bytes,2,rep,name=Items,proto3" json:"Items,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *GetAllUserListRsp) Reset()         { *m = GetAllUserListRsp{} }
+func (m *GetAllUserListRsp) String() string { return proto.CompactTextString(m) }
+func (*GetAllUserListRsp) ProtoMessage()    {}
+func (*GetAllUserListRsp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{5}
+}
+func (m *GetAllUserListRsp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetAllUserListRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetAllUserListRsp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetAllUserListRsp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllUserListRsp.Merge(m, src)
+}
+func (m *GetAllUserListRsp) XXX_Size() int {
+	return m.Size()
+}
+func (m *GetAllUserListRsp) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllUserListRsp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllUserListRsp proto.InternalMessageInfo
+
+func (m *GetAllUserListRsp) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *GetAllUserListRsp) GetItems() []*UserItem {
+	if m != nil {
+		return m.Items
+	}
+	return nil
+}
+
+type UserItem struct {
+	UserName             string   `protobuf:"bytes,1,opt,name=UserName,proto3" json:"UserName,omitempty"`
+	Uid                  string   `protobuf:"bytes,2,opt,name=Uid,proto3" json:"Uid,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UserItem) Reset()         { *m = UserItem{} }
+func (m *UserItem) String() string { return proto.CompactTextString(m) }
+func (*UserItem) ProtoMessage()    {}
+func (*UserItem) Descriptor() ([]byte, []int) {
+	return fileDescriptor_116e343673f7ffaf, []int{6}
+}
+func (m *UserItem) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *UserItem) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_UserItem.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *UserItem) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserItem.Merge(m, src)
+}
+func (m *UserItem) XXX_Size() int {
+	return m.Size()
+}
+func (m *UserItem) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserItem.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserItem proto.InternalMessageInfo
+
+func (m *UserItem) GetUserName() string {
+	if m != nil {
+		return m.UserName
+	}
+	return ""
+}
+
+func (m *UserItem) GetUid() string {
+	if m != nil {
+		return m.Uid
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*LoginParams)(nil), "core.LoginParams")
 	proto.RegisterType((*LoginRsp)(nil), "core.LoginRsp")
 	proto.RegisterType((*RegisterParams)(nil), "core.RegisterParams")
 	proto.RegisterType((*RegisterRsp)(nil), "core.RegisterRsp")
+	proto.RegisterType((*GetAllUserListParams)(nil), "core.GetAllUserListParams")
+	proto.RegisterType((*GetAllUserListRsp)(nil), "core.GetAllUserListRsp")
+	proto.RegisterType((*UserItem)(nil), "core.UserItem")
 }
 
 func init() { proto.RegisterFile("user.proto", fileDescriptor_116e343673f7ffaf) }
 
 var fileDescriptor_116e343673f7ffaf = []byte{
-	// 302 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0xc1, 0x4e, 0x83, 0x40,
-	0x10, 0xed, 0xb6, 0xd0, 0xb4, 0x53, 0x43, 0xda, 0x4d, 0x0f, 0x84, 0x03, 0x31, 0x9c, 0x3c, 0x11,
-	0x63, 0x4f, 0x5e, 0xdb, 0x13, 0x89, 0x31, 0x88, 0xf2, 0x01, 0x28, 0x9b, 0x86, 0xd8, 0xb2, 0x64,
-	0x16, 0xf5, 0xe4, 0x6f, 0x18, 0x3f, 0xc9, 0xa3, 0x9f, 0x60, 0xf0, 0x47, 0xcc, 0xce, 0x82, 0xa1,
-	0x1a, 0xbd, 0xcd, 0x7b, 0x30, 0xf3, 0xde, 0x9b, 0x59, 0x80, 0x07, 0x25, 0x30, 0xac, 0x50, 0xd6,
-	0x92, 0x5b, 0x77, 0x12, 0x45, 0x70, 0x05, 0xb3, 0x0b, 0xb9, 0x2d, 0xca, 0x38, 0xc3, 0x6c, 0xaf,
-	0xf8, 0x12, 0xec, 0xf4, 0x32, 0xdb, 0x0b, 0x97, 0x1d, 0xb3, 0x93, 0x69, 0x62, 0x00, 0x9f, 0xc3,
-	0x28, 0x2d, 0x72, 0x77, 0x48, 0x9c, 0x2e, 0xb9, 0x07, 0x93, 0x38, 0x53, 0xea, 0x49, 0x62, 0xee,
-	0x8e, 0x88, 0xfe, 0xc6, 0xc1, 0x0b, 0x83, 0x09, 0xcd, 0x4c, 0x54, 0xc5, 0x39, 0x58, 0x1b, 0x99,
-	0x9b, 0x79, 0x76, 0x42, 0xb5, 0xe6, 0x48, 0xc3, 0xa2, 0x46, 0xaa, 0xb5, 0xf0, 0x8d, 0xbc, 0x17,
-	0x65, 0x2b, 0x62, 0x00, 0xf7, 0x01, 0xae, 0x05, 0x3e, 0x0a, 0x8c, 0x25, 0xd6, 0xad, 0x50, 0x8f,
-	0x21, 0x63, 0x51, 0xee, 0xda, 0xad, 0xb1, 0x88, 0x8c, 0x99, 0xef, 0x51, 0xee, 0x8e, 0x8d, 0xb1,
-	0x0e, 0x07, 0x6b, 0x70, 0x12, 0xb1, 0x2d, 0x54, 0x2d, 0xf0, 0xdf, 0xb8, 0xfd, 0x70, 0xc3, 0x1f,
-	0xe1, 0x56, 0x30, 0xeb, 0x66, 0xfc, 0x15, 0xef, 0xd7, 0xb6, 0xce, 0x9e, 0xc1, 0x49, 0x95, 0xc0,
-	0x8d, 0x2c, 0x6b, 0x94, 0xbb, 0x9d, 0x40, 0x7e, 0x0a, 0x53, 0xcd, 0xd0, 0x9a, 0xf8, 0x22, 0xd4,
-	0xa7, 0x08, 0x7b, 0x77, 0xf0, 0x9c, 0x1e, 0x95, 0xa8, 0x2a, 0x18, 0xf0, 0x73, 0x38, 0xea, 0x84,
-	0x75, 0x27, 0x5f, 0x9a, 0x3f, 0x0e, 0x03, 0x79, 0x8b, 0x43, 0x96, 0x5a, 0xd7, 0xf3, 0xb7, 0xc6,
-	0x67, 0xef, 0x8d, 0xcf, 0x3e, 0x1a, 0x9f, 0xbd, 0x7e, 0xfa, 0x83, 0xdb, 0x31, 0x3d, 0x81, 0xd5,
-	0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x43, 0xd7, 0xb2, 0x44, 0x10, 0x02, 0x00, 0x00,
+	// 378 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0xc1, 0x4e, 0x32, 0x31,
+	0x10, 0xa6, 0xc0, 0x12, 0x18, 0xfe, 0x6c, 0xa0, 0x21, 0xbf, 0x9b, 0x3d, 0x6c, 0x48, 0xe3, 0x81,
+	0x13, 0x31, 0x70, 0xd1, 0xa3, 0x70, 0x20, 0x9b, 0xa0, 0xc1, 0x2a, 0x0f, 0xb0, 0xba, 0x0d, 0xd9,
+	0xb8, 0x50, 0xd2, 0x56, 0x7d, 0x13, 0xe3, 0x13, 0x19, 0x8f, 0x3e, 0x82, 0xc1, 0x17, 0x31, 0x6d,
+	0x59, 0xb2, 0x2b, 0xe0, 0x6d, 0xe6, 0x9b, 0xce, 0x7c, 0xdf, 0x37, 0x1d, 0x80, 0x27, 0xc9, 0x44,
+	0x7f, 0x2d, 0xb8, 0xe2, 0xb8, 0xfa, 0xc0, 0x05, 0x23, 0x37, 0xd0, 0x9c, 0xf2, 0x45, 0xb2, 0x9a,
+	0x45, 0x22, 0x5a, 0x4a, 0xdc, 0x01, 0x67, 0x7e, 0x1d, 0x2d, 0x99, 0x87, 0xba, 0xa8, 0xd7, 0xa0,
+	0x36, 0xc1, 0x2d, 0xa8, 0xcc, 0x93, 0xd8, 0x2b, 0x1b, 0x4c, 0x87, 0xd8, 0x87, 0xfa, 0x2c, 0x92,
+	0xf2, 0x85, 0x8b, 0xd8, 0xab, 0x18, 0x78, 0x97, 0x93, 0x57, 0x04, 0x75, 0x33, 0x93, 0xca, 0x35,
+	0xc6, 0x50, 0x1d, 0xf3, 0xd8, 0xce, 0x73, 0xa8, 0x89, 0x35, 0x66, 0x38, 0xaa, 0xa6, 0xd1, 0xc4,
+	0x9a, 0xf8, 0x8e, 0x3f, 0xb2, 0xd5, 0x96, 0xc4, 0x26, 0x38, 0x00, 0xb8, 0x65, 0xe2, 0x99, 0x89,
+	0x19, 0x17, 0x6a, 0x4b, 0x94, 0x43, 0x8c, 0xb0, 0x30, 0xf6, 0x9c, 0xad, 0xb0, 0xd0, 0x08, 0xb3,
+	0xf5, 0x30, 0xf6, 0x6a, 0x56, 0x58, 0x96, 0x93, 0x11, 0xb8, 0x94, 0x2d, 0x12, 0xa9, 0x98, 0xf8,
+	0xd3, 0x6e, 0xde, 0x5c, 0xf9, 0x97, 0xb9, 0x21, 0x34, 0xb3, 0x19, 0xc7, 0xec, 0xed, 0x6d, 0x8b,
+	0xfc, 0x87, 0xce, 0x84, 0xa9, 0xcb, 0x34, 0x9d, 0x4b, 0x26, 0xa6, 0x89, 0x54, 0x96, 0x9e, 0x5c,
+	0x41, 0xbb, 0x88, 0x1f, 0x1b, 0x79, 0x0a, 0x4e, 0xa8, 0xd8, 0x52, 0x7a, 0xe5, 0x6e, 0xa5, 0xd7,
+	0x1c, 0xb8, 0x7d, 0xfd, 0x77, 0x7d, 0xdd, 0xa5, 0x61, 0x6a, 0x8b, 0xe4, 0x1c, 0xea, 0x19, 0xa4,
+	0x3d, 0xe8, 0x38, 0x67, 0x6e, 0x97, 0xef, 0x0b, 0x1c, 0xbc, 0x23, 0x70, 0x75, 0x79, 0xcc, 0x57,
+	0x4a, 0xf0, 0x34, 0x65, 0x02, 0x9f, 0x41, 0xc3, 0xa8, 0xd2, 0x1f, 0x89, 0xdb, 0x96, 0x30, 0x77,
+	0x29, 0xbe, 0x9b, 0x83, 0xa8, 0x5c, 0x93, 0x12, 0xbe, 0x80, 0x7f, 0xd9, 0x6a, 0x74, 0x27, 0xee,
+	0xd8, 0x17, 0xc5, 0x95, 0xfb, 0xed, 0x22, 0x6a, 0x5b, 0x27, 0xe0, 0x16, 0x17, 0x81, 0x7d, 0xfb,
+	0xec, 0xd0, 0xda, 0xfc, 0x93, 0x43, 0x35, 0x33, 0x68, 0xd4, 0xfa, 0xd8, 0x04, 0xe8, 0x73, 0x13,
+	0xa0, 0xaf, 0x4d, 0x80, 0xde, 0xbe, 0x83, 0xd2, 0x7d, 0xcd, 0x5c, 0xfb, 0xf0, 0x27, 0x00, 0x00,
+	0xff, 0xff, 0x13, 0x81, 0x43, 0x99, 0xfb, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -332,6 +490,7 @@ const _ = grpc.SupportPackageIsVersion4
 type UserControllerClient interface {
 	UserLogin(ctx context.Context, in *LoginParams, opts ...grpc.CallOption) (*LoginRsp, error)
 	RegisterUser(ctx context.Context, in *RegisterParams, opts ...grpc.CallOption) (*RegisterRsp, error)
+	GetAllUserList(ctx context.Context, in *GetAllUserListParams, opts ...grpc.CallOption) (*GetAllUserListRsp, error)
 }
 
 type userControllerClient struct {
@@ -360,10 +519,20 @@ func (c *userControllerClient) RegisterUser(ctx context.Context, in *RegisterPar
 	return out, nil
 }
 
+func (c *userControllerClient) GetAllUserList(ctx context.Context, in *GetAllUserListParams, opts ...grpc.CallOption) (*GetAllUserListRsp, error) {
+	out := new(GetAllUserListRsp)
+	err := c.cc.Invoke(ctx, "/core.UserController/GetAllUserList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserControllerServer is the server API for UserController service.
 type UserControllerServer interface {
 	UserLogin(context.Context, *LoginParams) (*LoginRsp, error)
 	RegisterUser(context.Context, *RegisterParams) (*RegisterRsp, error)
+	GetAllUserList(context.Context, *GetAllUserListParams) (*GetAllUserListRsp, error)
 }
 
 // UnimplementedUserControllerServer can be embedded to have forward compatible implementations.
@@ -375,6 +544,9 @@ func (*UnimplementedUserControllerServer) UserLogin(ctx context.Context, req *Lo
 }
 func (*UnimplementedUserControllerServer) RegisterUser(ctx context.Context, req *RegisterParams) (*RegisterRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
+}
+func (*UnimplementedUserControllerServer) GetAllUserList(ctx context.Context, req *GetAllUserListParams) (*GetAllUserListRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllUserList not implemented")
 }
 
 func RegisterUserControllerServer(s *grpc.Server, srv UserControllerServer) {
@@ -417,6 +589,24 @@ func _UserController_RegisterUser_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserController_GetAllUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllUserListParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserControllerServer).GetAllUserList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/core.UserController/GetAllUserList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserControllerServer).GetAllUserList(ctx, req.(*GetAllUserListParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _UserController_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "core.UserController",
 	HandlerType: (*UserControllerServer)(nil),
@@ -428,6 +618,10 @@ var _UserController_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegisterUser",
 			Handler:    _UserController_RegisterUser_Handler,
+		},
+		{
+			MethodName: "GetAllUserList",
+			Handler:    _UserController_GetAllUserList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -629,6 +823,120 @@ func (m *RegisterRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *GetAllUserListParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetAllUserListParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetAllUserListParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetAllUserListRsp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetAllUserListRsp) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetAllUserListRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Items) > 0 {
+		for iNdEx := len(m.Items) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Items[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintUser(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if m.Code != 0 {
+		i = encodeVarintUser(dAtA, i, uint64(m.Code))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *UserItem) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *UserItem) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *UserItem) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.Uid) > 0 {
+		i -= len(m.Uid)
+		copy(dAtA[i:], m.Uid)
+		i = encodeVarintUser(dAtA, i, uint64(len(m.Uid)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.UserName) > 0 {
+		i -= len(m.UserName)
+		copy(dAtA[i:], m.UserName)
+		i = encodeVarintUser(dAtA, i, uint64(len(m.UserName)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintUser(dAtA []byte, offset int, v uint64) int {
 	offset -= sovUser(v)
 	base := offset
@@ -727,6 +1035,59 @@ func (m *RegisterRsp) Size() (n int) {
 	_ = l
 	if m.Code != 0 {
 		n += 1 + sovUser(uint64(m.Code))
+	}
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovUser(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *GetAllUserListParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *GetAllUserListRsp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Code != 0 {
+		n += 1 + sovUser(uint64(m.Code))
+	}
+	if len(m.Items) > 0 {
+		for _, e := range m.Items {
+			l = e.Size()
+			n += 1 + l + sovUser(uint64(l))
+		}
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *UserItem) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.UserName)
+	if l > 0 {
+		n += 1 + l + sovUser(uint64(l))
 	}
 	l = len(m.Uid)
 	if l > 0 {
@@ -1293,6 +1654,285 @@ func (m *RegisterRsp) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUser
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthUser
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthUser
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipUser(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthUser
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthUser
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetAllUserListParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowUser
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetAllUserListParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetAllUserListParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipUser(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthUser
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthUser
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetAllUserListRsp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowUser
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetAllUserListRsp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetAllUserListRsp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Code", wireType)
+			}
+			m.Code = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUser
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Code |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Items", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUser
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthUser
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthUser
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Items = append(m.Items, &UserItem{})
+			if err := m.Items[len(m.Items)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipUser(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthUser
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthUser
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *UserItem) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowUser
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: UserItem: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: UserItem: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUser
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthUser
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthUser
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)

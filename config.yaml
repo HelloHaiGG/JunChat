@@ -32,10 +32,10 @@ servers:
 
 connect_port:
   nodes:
-    connect-1: "7933"
-    connect-2: "7934"
-    connect-3: "7935"
-    connect-4: "7936"
+    node-1: "7933"
+    node-2: "7934"
+    node-3: "7935"
+    node-4: "7936"
     ##["7933","7936","7934","7935"]
 core_port:
   nodes:
@@ -47,8 +47,8 @@ core_port:
 
 jun_chat:
   nodes:
-    chat-1: "3501"
-    chat-2: "3502"
-    chat-3: "3503"
-    chat-4: "3504"
+    node-1: "3501"
+    node-2: "3502"
+    node-3: "3503"
+    node-4: "3504"
     ##["3501","3502","3503","3504"]

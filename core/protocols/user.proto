@@ -27,9 +27,24 @@ message RegisterRsp {
   string Uid = 2;
 }
 
+//获取用户列表
+message GetAllUserListParams{
+}
+
+message GetAllUserListRsp{
+  int32 Code = 1;
+  repeated UserItem Items = 2;
+}
+message UserItem {
+  string UserName = 1;
+  string Uid = 2;
+}
+
 service UserController {
   rpc UserLogin (LoginParams) returns (LoginRsp) {
   }
   rpc RegisterUser (RegisterParams) returns (RegisterRsp) {
+  }
+  rpc GetAllUserList (GetAllUserListParams) returns (GetAllUserListRsp){
   }
 }

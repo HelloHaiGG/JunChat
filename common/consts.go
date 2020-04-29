@@ -28,12 +28,15 @@ const (
 	NoUsableServer = 60002
 	//添加活跃节点失败
 	AddNodeFailed = 60003
+	//获取所有用户
+	GetAllUsersErr = 60004
 )
 
 //程序相关
 const (
 	RoomChat   = 1
 	SingleChat = 2
+	System = 3
 
 	//玩家所在节点
 	LiveOnServer = "LIVE:ON:SERVER"

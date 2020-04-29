@@ -46,6 +46,9 @@ func HandleReq(w http.ResponseWriter, r *http.Request) {
 	conn.Uid = userId
 	//存储玩家链接
 	HandleConn.Store(conn.Uid, conn)
+	Send(userId)
+	//监控,处理关闭请求
+	go conn.HandlerConn()
 	return
 }
 
@@ -55,7 +58,7 @@ func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) (string, error
 	protocols := websocket.Subprotocols(r)
 	if len(protocols) < 2 {
 		_, _ = io.WriteString(w, "Sub Protocol!")
-		return "",nil
+		return "", nil
 	}
 	serverId := protocols[0]
 	userId := protocols[1]
@@ -68,7 +71,7 @@ func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) (string, error
 	//将http请求升级为websocket
 	upgrade := &websocket.Upgrader{CheckOrigin: func(r *http.Request) bool {
 		return true
-	},Subprotocols:protocols}
+	}, Subprotocols: protocols}
 	conn, err := upgrade.Upgrade(w, r, nil)
 	if err != nil {
 		return "", err
@@ -82,22 +85,15 @@ func (p *Connect) HandlerConn() {
 	defer func() {
 		_ = p.CloseConn()
 	}()
-	t := time.NewTicker(60 * time.Second)
 	for {
-		select {
-		case <-t.C:
-			//掉线处理
+		_, msg, err := p.Conn.ReadMessage()
+		if err != nil {
 			_ = p.CloseConn()
 			return
-		default:
-			_, msg, err := p.Conn.ReadMessage()
-			if err != nil {
-				_ = p.CloseConn()
-			}
-			body := &models.HeartBeat{}
-			_ = json.Unmarshal(msg, body)
-			fmt.Println("Heart-Beat:", body.Msg)
 		}
+		body := &models.HeartBeat{}
+		_ = json.Unmarshal(msg, body)
+		fmt.Println("Heart-Beat:", body.Msg)
 	}
 }
 
@@ -109,6 +105,7 @@ func (p *Connect) CloseConn() error {
 	client := core.NewCenterServerClient(conn)
 	rsp, err := client.OnDisconnectReport(context.Background(), &core.ReportDisconnectParams{
 		Id:       p.Uid,
+		ServerId: NETServer,
 		Category: 0,
 	})
 	if err != nil {
@@ -119,4 +116,14 @@ func (p *Connect) CloseConn() error {
 	}
 	HandleConn.Delete(rsp.Id)
 	return nil
+}
+
+func Send(uid string) {
+	conn, ok := HandleConn.Load(uid)
+	if !ok {
+		log.Println("Send Message On Connect JunChat.")
+		return
+	}
+	c, _ := conn.(*Connect)
+	_ = c.Conn.WriteMessage(websocket.TextMessage, models.GetDailyMessage())
 }

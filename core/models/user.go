@@ -53,7 +53,7 @@ func (p *UserInfo) LoginByUid() error {
 	}
 	if err := igorm.DbClient.Model(UserInfo{}).
 		Where("uid = ? and password = ?", p.Uid, p.Password).
-		Update("is_login", true).Error; err != nil {
+		Find(p).Error; err != nil {
 		return err
 	}
 	return nil
@@ -65,14 +65,37 @@ func (p *UserInfo) LoginByUserName() error {
 	}
 	if err := igorm.DbClient.Model(UserInfo{}).
 		Where("user_name = ? and password = ?", p.UserName, p.Password).
-		Update("is_login", true).Error; err != nil {
+		Find(p).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
+func GetAllUsersList() ([]*UserInfo, error) {
+	var list []*UserInfo
+	if err := igorm.DbClient.Model(UserInfo{}).Select("uid,user_name").Scan(&list).Error; err != nil {
+		return list, err
+	}
+	return list, nil
+}
+
+func GetUserInfoById(id string) (*UserInfo, error) {
+	info := &UserInfo{}
+	if err := igorm.DbClient.Model(UserInfo{}).Select("uid,user_name").Where("uid = ?",id).Scan(info).Error; err != nil {
+		return nil, err
+	}
+	return info,nil
+}
+
 type Users struct {
 	Ids []string `json:"ids"`
+}
+
+func (p *Users) AllUsers() error {
+	if err := igorm.DbClient.Model(UserInfo{}).Pluck("uid", &p.Ids).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 //遍历所有server,如果现在直接返回所在serverId
