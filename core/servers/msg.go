@@ -24,5 +24,6 @@ func (p *SendMessageController) SendMessage(cxt context.Context, in *core.SendMs
 		log.Error("Push Msg To Queue Err:", err)
 		return &core.SendMsgRsp{Code: common.SendMsgFailed}, nil
 	}
+	log.Info("Push Msg To Queue Suc. Msg Id:",msg.Id)
 	return &core.SendMsgRsp{Code: common.Success}, nil
 }

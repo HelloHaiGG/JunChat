@@ -28,17 +28,24 @@ func main() {
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
 	igorm.Init(&igorm.IOption{
-		Host:     "",
-		Port:     0,
-		User:     "root",
-		Password: "starunion",
+		Host:     config.APPConfig.Mysql.Host,
+		Port:     config.APPConfig.Mysql.Port,
+		User:     config.APPConfig.Mysql.User,
+		Password: config.APPConfig.Mysql.Password,
 		DB:       "jun_chat",
 		IsDebug:  true,
 	})
 
 	igorm.DbClient.AutoMigrate(&models.UserInfo{})
 
-	iredis.Init(&iredis.IOptions{DialTimeOut: 10 * time.Second, MaxConnAge: 10 * time.Second})
+	iredis.Init(&iredis.IOptions{
+		Host:config.APPConfig.Redis.Host,
+		Port:config.APPConfig.Redis.Port,
+		Password:config.APPConfig.Redis.Password,
+		DB:config.APPConfig.Redis.DB,
+		DialTimeOut: 10 * time.Second,
+		MaxConnAge: 10 * time.Second,
+	})
 
 	//初始化缓存信息 【玩家Token,服务负载信息】
 	//iredis.RedisCli.Del("")

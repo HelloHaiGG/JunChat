@@ -22,7 +22,14 @@ func main() {
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
 
-	iredis.Init(&iredis.IOptions{DialTimeOut: 10 * time.Second, MaxConnAge: 10 * time.Second})
+	iredis.Init(&iredis.IOptions{
+		Host:        config.APPConfig.Redis.Host,
+		Port:        config.APPConfig.Redis.Port,
+		Password:    config.APPConfig.Redis.Password,
+		DB:          config.APPConfig.Redis.DB,
+		DialTimeOut: 10 * time.Second,
+		MaxConnAge:  10 * time.Second,
+	})
 
 	go servers.Start()
 	//注册服务

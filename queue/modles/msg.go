@@ -17,7 +17,7 @@ type Node struct {
 
 type MsgWrap struct {
 	*queue.MessageBody
-	N            map[string]*Node `json:"N"` //接受者所在节点信息
+	N map[string]*Node `json:"N"` //接受者所在节点信息
 }
 
 func (p *MsgWrap) PushMsg() {
@@ -29,7 +29,7 @@ func (p *MsgWrap) PushMsg() {
 		_ = proto.Unmarshal(b, msg)
 		//将接受者换层UserId
 		//聊天室消息在发送时,ReceiverId 是聊天室的Id,现在需要将Id替换成UserId
-		msg.Receiver = &connect.UserItem{Uid:id}
+		msg.Receiver = &connect.UserItem{Uid: id}
 		rsp, err := client.PushMsgToConnectServer(context.Background(), &connect.PushMsgParams{
 			Encrypted:     true,
 			Encryption:    0,
@@ -38,7 +38,9 @@ func (p *MsgWrap) PushMsg() {
 			ServerId:      "",
 		})
 		if err != nil || rsp.Code != common2.Success {
-			log.Print("Push Message To Queue Err:", err)
+			log.Print("Push Message To Connect Server Err:", err)
+			return
 		}
+		log.Println("Push Message To Connect Suc. Msg Id:", msg.Id, " Receiver Id:", msg.Receiver)
 	}
 }

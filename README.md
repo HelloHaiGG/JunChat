@@ -24,6 +24,12 @@ Go-分布式聊天系统
     提供消息队列,接受逻辑层处理好的消息,并将消息发送到对应的Connect Server
 ````
 ````
-1. 用户通过网关层
-
+Gateway:
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o gateway main.go
+Connect:
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o connect main.go
+Core:
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o core main.go
+Queue:
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o queue  main.go
 ````

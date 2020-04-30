@@ -32,7 +32,10 @@ func (p *PushMessageController) PushMsgToConnectServer(ctx context.Context, in *
 	}
 	c, _ := conn.(*Connect)
 	b, _ := json.Marshal(in.Msg)
-	_ = c.Conn.WriteMessage(websocket.TextMessage, b)
+	err := c.Conn.WriteMessage(websocket.TextMessage, b)
+	if err != nil{
+		log.Error("Push Msg To WebSocket Err:",err)
+	}
 
 	return &connect.PushMsgRsp{Code:common.Success}, nil
 }
