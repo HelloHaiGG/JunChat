@@ -6,7 +6,7 @@ import (
 	core "JunChat/core/protocols"
 	"errors"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/prometheus/common/log"
+	"log"
 )
 
 type MsgWrap struct {
@@ -45,7 +45,7 @@ func (p *MsgWrap) WrapNode(in *core.SendMsgParams) (string, error) {
 	//封装发送者用户基本信息
 	info, err := GetUserInfoById(p.Sender.Uid)
 	if err != nil || info == nil {
-		log.Error("Get Sender Info Err:", err)
+		log.Printf("Get Sender Info Err: %v", err)
 	} else {
 		p.Sender.UserName = info.UserName
 	}

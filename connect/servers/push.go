@@ -6,7 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/gorilla/websocket"
-	"github.com/prometheus/common/log"
+	"log"
 )
 
 type PushMessageController struct {
@@ -27,14 +27,14 @@ func (p *PushMessageController) PushMsgToConnectServer(ctx context.Context, in *
 	}
 	conn, ok := HandleConn.Load(in.Msg.Receiver.Uid)
 	if !ok {
-		log.Error("用户未链接.")
+		log.Println("用户未链接.")
 		return &connect.PushMsgRsp{Code: common.SendMsgFailed}, nil
 	}
 	c, _ := conn.(*Connect)
 	b, _ := json.Marshal(in.Msg)
 	err := c.Conn.WriteMessage(websocket.TextMessage, b)
 	if err != nil{
-		log.Error("Push Msg To WebSocket Err:",err)
+		log.Printf("Push Msg To WebSocket Err: %v \n",err)
 	}
 
 	return &connect.PushMsgRsp{Code:common.Success}, nil

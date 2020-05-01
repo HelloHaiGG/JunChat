@@ -6,7 +6,7 @@ import (
 	"JunChat/core/models"
 	core "JunChat/core/protocols"
 	"context"
-	"github.com/prometheus/common/log"
+	"log"
 )
 
 type SendMessageController struct{}
@@ -16,14 +16,14 @@ func (p *SendMessageController) SendMessage(cxt context.Context, in *core.SendMs
 	msg.N = map[string]*models.Node{}
 	body, err := msg.WrapNode(in)
 	if err != nil {
-		log.Error("Wrap Node Err:", err)
+		log.Printf("Wrap Node Err: %v\n", err)
 		return &core.SendMsgRsp{Code: common.SendMsgFailed}, nil
 	}
 	_, err = iredis.RedisCli.LPush(common.MsgQueue, body).Result()
 	if err != nil {
-		log.Error("Push Msg To Queue Err:", err)
+		log.Printf("Push Msg To Queue Err: %v\n", err)
 		return &core.SendMsgRsp{Code: common.SendMsgFailed}, nil
 	}
-	log.Info("Push Msg To Queue Suc. Msg Id:",msg.Id)
+	log.Println("Push Msg To Queue Suc. Msg Id:",msg.Id)
 	return &core.SendMsgRsp{Code: common.Success}, nil
 }

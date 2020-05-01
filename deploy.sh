@@ -14,11 +14,29 @@ echo "Building Core..."
 cd ../core
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o core main.go
 echo "Building Queue..."
+cd ../queue
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o queue  main.go
 #返回上层目录
 cd ..
 
 mkdir "JunChatServer"
 
-echo "Deploy Sucess"
+mv gateway/gateway ./JunChatServer
+mv connect/connect ./JunChatServer
+mv core/core ./JunChatServer
+mv queue/queue ./JunChatServer
+cp ./config.yaml ./JunChatServer
+
+echo "Compress..."
+tar -czf ./JunChatServer.tar.gz ./JunChatServer/
+echo "Compress Success"
+echo "Upload File...."
+scp ./JunChatServer.tar.gz root@182.92.239.63:/root
+echo "Upload File Success"
+
 rm -rf "JunChatServer"
+rm -rf "JunChatServer.tar.gz"
+
+
+###云端
+ssh root@182.92.239.63 < ./deploy_cloud.sh
