@@ -1,7 +1,7 @@
 package common
 
 import (
-	"HelloMyWorld/common/ietcd"
+	"JunChat/common/ietcd"
 	"context"
 	"fmt"
 	"go.etcd.io/etcd/clientv3"

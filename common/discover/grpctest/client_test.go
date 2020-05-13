@@ -1,7 +1,9 @@
 package grpctest
 
 import (
-	serverhandler "common/discover"
+	common "JunChat/common/discover"
+	"JunChat/common/ietcd"
+	"JunChat/config"
 	"context"
 	"fmt"
 	"testing"
@@ -21,7 +23,7 @@ func TestGetServerInstance(t *testing.T) {
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
 
-	conn := serverhandler.GetServerConn(testServer)
+	conn := common.GetServerConn(testServer)
 
 	client := NewHelloClient(conn)
 	for true {

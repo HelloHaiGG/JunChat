@@ -1,8 +1,8 @@
 package common
 
 import (
-	"HelloMyWorld/common/ietcd"
-	"HelloMyWorld/config"
+	"JunChat/common/ietcd"
+	"JunChat/config"
 	"testing"
 	"time"
 )

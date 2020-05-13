@@ -1,7 +1,6 @@
 package common
 
 import (
-	"HelloMyWorld/config"
 	"context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/balancer/roundrobin"

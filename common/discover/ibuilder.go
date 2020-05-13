@@ -1,7 +1,6 @@
 package common
 
 import (
-	"HelloMyWorld/common/ietcd"
 	"google.golang.org/grpc/resolver"
 	"log"
 )

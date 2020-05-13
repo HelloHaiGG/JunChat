@@ -1,9 +1,9 @@
 package grpctest
 
 import (
-	"HelloMyWorld/common/ietcd"
-	"HelloMyWorld/common/serverholder"
-	"HelloMyWorld/config"
+	common "JunChat/common/discover"
+	"JunChat/common/ietcd"
+	"JunChat/config"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
@@ -32,7 +32,7 @@ func TestRegisterHelloServer(t *testing.T) {
 		KeepAliveTime: time.Duration(config.APPConfig.Etcd.DialKeepAliveTime),
 		DialTimeOut:   time.Duration(config.APPConfig.Etcd.DialTimeOut),
 	})
-	register, err := serverhandler.NewRegisterSvr(ietcd.Client, 10)
+	register, err := common.NewRegisterSvr(ietcd.Client, 10)
 	if err != nil {
 		t.Fatal(err)
 	}
