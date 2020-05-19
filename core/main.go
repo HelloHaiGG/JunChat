@@ -72,7 +72,7 @@ func main() {
 	if err != nil {
 		log.Fatal("[Core] Register Server:", err)
 	}
-
+	//注册RPC服务
 	err = register.RunRpcServer(port, func(server *grpc.Server) {
 		common2.RegisterProtoDialServer(server, new(servers.CoreDialServer))
 		core.RegisterUserControllerServer(server, new(servers.UserController))
