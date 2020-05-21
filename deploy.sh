@@ -40,3 +40,4 @@ rm -rf "JunChatServer.tar.gz"
 
 ###云端
 ssh root@182.92.239.63 < ./deploy_cloud.sh
+# root123456.
