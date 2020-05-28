@@ -25,14 +25,15 @@ message GetMembersRsp {
   int32 OnlineCount = 3;
 }
 
-//汇报 用户/或者断开链接 或者 已经退出登录
-message ReportDisconnectParams {
+//汇报 用户断开链接 或者 已经退出登录
+message ReportOnlineParams {
   string Id = 1;
   string ServerId = 2;
   int32 Category = 3;
+  int32 Status = 4; //1.上线 2.离线
 }
 
-message ReportDisconnectRsp {
+message ReportOnlineRsp {
   int32 Code = 1;
   string id = 2;
 }
@@ -86,7 +87,7 @@ service CenterServer {
   rpc GetRoomMembers (GetMembersParams) returns (GetMembersRsp) {
   }
   //断线汇报
-  rpc OnDisconnectReport (ReportDisconnectParams) returns (ReportDisconnectRsp) {
+  rpc OnlineReport (ReportOnlineParams) returns (ReportOnlineRsp) {
   }
   //节点通知
   rpc OnServerChange  (ReportServerStatusParams) returns (ReportServerStatusRsp){

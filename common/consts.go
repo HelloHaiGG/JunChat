@@ -36,7 +36,10 @@ const (
 const (
 	RoomChat   = 1
 	SingleChat = 2
-	System = 3
+	System     = 3
+
+	Online  = 1
+	Offline = 2
 
 	//玩家所在节点
 	LiveOnServer = "LIVE:ON:SERVER"

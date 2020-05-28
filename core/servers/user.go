@@ -3,7 +3,6 @@ package servers
 import (
 	"JunChat/common"
 	"JunChat/common/iredis"
-	"JunChat/config"
 	"JunChat/core/models"
 	core "JunChat/core/protocols"
 	"JunChat/utils"
@@ -59,15 +58,7 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 		}, nil
 	}
 
-	//调度
-	serverId, err := Dispatch(user.Uid)
-	if err != nil || serverId == "" {
-		return &core.LoginRsp{
-			Code: common.NoUsableServer,
-		}, nil
-	}
-
-	token := &models.TokenEntity{Info: &user, ServerId: serverId, TimeStamp: time.Now().Unix()}
+	token := &models.TokenEntity{Info: &user, TimeStamp: time.Now().Unix()}
 	str, _ := jsoniter.MarshalToString(token)
 
 	session, _ := utils.AesEncrypt([]byte(str), utils.KEY)
@@ -81,11 +72,9 @@ func (p *UserController) UserLogin(ctx context.Context, in *core.LoginParams) (*
 
 	return &core.LoginRsp{
 		Code:       common.Success,
-		ServerPort: config.APPConfig.JC.Nodes[serverId],
 		UId:        user.Uid,
 		Name:       user.UserName,
 		Token:      session,
-		ServerId:   serverId,
 	}, nil
 
 }
@@ -135,7 +124,7 @@ func (p *UserController) GetAllUserList(ctx context.Context, in *core.GetAllUser
 	}
 	items := make([]*core.UserItem, len(list))
 	for i, info := range list {
-		items[i] = &core.UserItem{Uid:info.Uid,UserName:info.UserName}
+		items[i] = &core.UserItem{Uid: info.Uid, UserName: info.UserName}
 	}
 	return &core.GetAllUserListRsp{Code: common.Success, Items: items}, nil
 }

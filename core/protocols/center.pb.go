@@ -256,28 +256,29 @@ func (m *GetMembersRsp) GetOnlineCount() int32 {
 	return 0
 }
 
-//汇报 用户/或者断开链接 或者 已经退出登录
-type ReportDisconnectParams struct {
+//汇报 用户断开链接 或者 已经退出登录
+type ReportOnlineParams struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=Id,proto3" json:"Id,omitempty"`
 	ServerId             string   `protobuf:"bytes,2,opt,name=ServerId,proto3" json:"ServerId,omitempty"`
 	Category             int32    `protobuf:"varint,3,opt,name=Category,proto3" json:"Category,omitempty"`
+	Status               int32    `protobuf:"varint,4,opt,name=Status,proto3" json:"Status,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ReportDisconnectParams) Reset()         { *m = ReportDisconnectParams{} }
-func (m *ReportDisconnectParams) String() string { return proto.CompactTextString(m) }
-func (*ReportDisconnectParams) ProtoMessage()    {}
-func (*ReportDisconnectParams) Descriptor() ([]byte, []int) {
+func (m *ReportOnlineParams) Reset()         { *m = ReportOnlineParams{} }
+func (m *ReportOnlineParams) String() string { return proto.CompactTextString(m) }
+func (*ReportOnlineParams) ProtoMessage()    {}
+func (*ReportOnlineParams) Descriptor() ([]byte, []int) {
 	return fileDescriptor_1de517c49d537f4b, []int{4}
 }
-func (m *ReportDisconnectParams) XXX_Unmarshal(b []byte) error {
+func (m *ReportOnlineParams) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *ReportDisconnectParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *ReportOnlineParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_ReportDisconnectParams.Marshal(b, m, deterministic)
+		return xxx_messageInfo_ReportOnlineParams.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -287,40 +288,47 @@ func (m *ReportDisconnectParams) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *ReportDisconnectParams) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReportDisconnectParams.Merge(m, src)
+func (m *ReportOnlineParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReportOnlineParams.Merge(m, src)
 }
-func (m *ReportDisconnectParams) XXX_Size() int {
+func (m *ReportOnlineParams) XXX_Size() int {
 	return m.Size()
 }
-func (m *ReportDisconnectParams) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReportDisconnectParams.DiscardUnknown(m)
+func (m *ReportOnlineParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReportOnlineParams.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReportDisconnectParams proto.InternalMessageInfo
+var xxx_messageInfo_ReportOnlineParams proto.InternalMessageInfo
 
-func (m *ReportDisconnectParams) GetId() string {
+func (m *ReportOnlineParams) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *ReportDisconnectParams) GetServerId() string {
+func (m *ReportOnlineParams) GetServerId() string {
 	if m != nil {
 		return m.ServerId
 	}
 	return ""
 }
 
-func (m *ReportDisconnectParams) GetCategory() int32 {
+func (m *ReportOnlineParams) GetCategory() int32 {
 	if m != nil {
 		return m.Category
 	}
 	return 0
 }
 
-type ReportDisconnectRsp struct {
+func (m *ReportOnlineParams) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
+}
+
+type ReportOnlineRsp struct {
 	Code                 int32    `protobuf:"varint,1,opt,name=Code,proto3" json:"Code,omitempty"`
 	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -328,18 +336,18 @@ type ReportDisconnectRsp struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ReportDisconnectRsp) Reset()         { *m = ReportDisconnectRsp{} }
-func (m *ReportDisconnectRsp) String() string { return proto.CompactTextString(m) }
-func (*ReportDisconnectRsp) ProtoMessage()    {}
-func (*ReportDisconnectRsp) Descriptor() ([]byte, []int) {
+func (m *ReportOnlineRsp) Reset()         { *m = ReportOnlineRsp{} }
+func (m *ReportOnlineRsp) String() string { return proto.CompactTextString(m) }
+func (*ReportOnlineRsp) ProtoMessage()    {}
+func (*ReportOnlineRsp) Descriptor() ([]byte, []int) {
 	return fileDescriptor_1de517c49d537f4b, []int{5}
 }
-func (m *ReportDisconnectRsp) XXX_Unmarshal(b []byte) error {
+func (m *ReportOnlineRsp) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *ReportDisconnectRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *ReportOnlineRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_ReportDisconnectRsp.Marshal(b, m, deterministic)
+		return xxx_messageInfo_ReportOnlineRsp.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -349,26 +357,26 @@ func (m *ReportDisconnectRsp) XXX_Marshal(b []byte, deterministic bool) ([]byte,
 		return b[:n], nil
 	}
 }
-func (m *ReportDisconnectRsp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReportDisconnectRsp.Merge(m, src)
+func (m *ReportOnlineRsp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReportOnlineRsp.Merge(m, src)
 }
-func (m *ReportDisconnectRsp) XXX_Size() int {
+func (m *ReportOnlineRsp) XXX_Size() int {
 	return m.Size()
 }
-func (m *ReportDisconnectRsp) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReportDisconnectRsp.DiscardUnknown(m)
+func (m *ReportOnlineRsp) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReportOnlineRsp.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReportDisconnectRsp proto.InternalMessageInfo
+var xxx_messageInfo_ReportOnlineRsp proto.InternalMessageInfo
 
-func (m *ReportDisconnectRsp) GetCode() int32 {
+func (m *ReportOnlineRsp) GetCode() int32 {
 	if m != nil {
 		return m.Code
 	}
 	return 0
 }
 
-func (m *ReportDisconnectRsp) GetId() string {
+func (m *ReportOnlineRsp) GetId() string {
 	if m != nil {
 		return m.Id
 	}
@@ -792,8 +800,8 @@ func init() {
 	proto.RegisterType((*GetServerByIdRsp)(nil), "core.GetServerByIdRsp")
 	proto.RegisterType((*GetMembersParams)(nil), "core.GetMembersParams")
 	proto.RegisterType((*GetMembersRsp)(nil), "core.GetMembersRsp")
-	proto.RegisterType((*ReportDisconnectParams)(nil), "core.ReportDisconnectParams")
-	proto.RegisterType((*ReportDisconnectRsp)(nil), "core.ReportDisconnectRsp")
+	proto.RegisterType((*ReportOnlineParams)(nil), "core.ReportOnlineParams")
+	proto.RegisterType((*ReportOnlineRsp)(nil), "core.ReportOnlineRsp")
 	proto.RegisterType((*ReportServerStatusParams)(nil), "core.ReportServerStatusParams")
 	proto.RegisterType((*ReportServerStatusRsp)(nil), "core.ReportServerStatusRsp")
 	proto.RegisterType((*CreateChatRoomParams)(nil), "core.CreateChatRoomParams")
@@ -807,42 +815,42 @@ func init() {
 func init() { proto.RegisterFile("center.proto", fileDescriptor_1de517c49d537f4b) }
 
 var fileDescriptor_1de517c49d537f4b = []byte{
-	// 555 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x94, 0xcd, 0x6e, 0xd3, 0x40,
-	0x10, 0xc7, 0x63, 0xe7, 0x03, 0x3a, 0x0d, 0x26, 0x6c, 0x1a, 0xd7, 0x75, 0x91, 0x15, 0xad, 0x84,
-	0x54, 0x09, 0x29, 0x07, 0x38, 0x71, 0xa2, 0x8d, 0x2b, 0x45, 0x46, 0x40, 0x90, 0x2b, 0x0e, 0x88,
-	0x0b, 0x6e, 0xbc, 0x6a, 0x2d, 0x91, 0xdd, 0x68, 0xbd, 0x45, 0xca, 0x2b, 0xf0, 0x04, 0x3c, 0x12,
-	0x47, 0x1e, 0x01, 0x85, 0x17, 0x41, 0xf6, 0xae, 0x1d, 0x7f, 0xe6, 0xe6, 0xf1, 0x8c, 0x7f, 0xf3,
-	0x9f, 0xd1, 0x7f, 0x0c, 0xc3, 0x15, 0xa1, 0x82, 0xf0, 0xd9, 0x86, 0x33, 0xc1, 0x50, 0x6f, 0xc5,
-	0x38, 0xc1, 0x57, 0x30, 0x5e, 0x10, 0x71, 0x43, 0xf8, 0x0f, 0xc2, 0xe7, 0x5b, 0x2f, 0xfc, 0x14,
-	0xf0, 0x60, 0x1d, 0x23, 0x03, 0x74, 0x2f, 0xb4, 0xb4, 0xa9, 0x76, 0x71, 0xe4, 0xeb, 0x5e, 0x88,
-	0x6c, 0x78, 0xec, 0x06, 0x82, 0xdc, 0x31, 0xbe, 0xb5, 0xba, 0x53, 0xed, 0xa2, 0xef, 0xe7, 0x31,
-	0x9e, 0xc3, 0xa8, 0x84, 0xf0, 0xe3, 0x0d, 0x42, 0xd0, 0x73, 0x59, 0x48, 0x52, 0x42, 0xdf, 0x4f,
-	0x9f, 0x13, 0x86, 0x2c, 0xf2, 0x42, 0x4b, 0x4f, 0xc9, 0x79, 0x8c, 0x2f, 0x53, 0xc6, 0x07, 0xb2,
-	0xbe, 0x25, 0x3c, 0x56, 0x1a, 0x46, 0xd0, 0xf5, 0xa3, 0x4c, 0x44, 0xf2, 0x78, 0x90, 0xf0, 0x05,
-	0x9e, 0xec, 0x09, 0x89, 0x84, 0x13, 0xe8, 0xbb, 0xec, 0x81, 0x0a, 0xa5, 0x41, 0x06, 0x09, 0xd4,
-	0x0b, 0x63, 0x4b, 0x9f, 0x76, 0x13, 0xa8, 0x17, 0xc6, 0x68, 0x0a, 0xc7, 0x4b, 0xfa, 0x3d, 0xa2,
-	0x44, 0x56, 0xcb, 0xe9, 0x8a, 0xaf, 0xf0, 0x37, 0x30, 0x7d, 0xb2, 0x61, 0x5c, 0x5c, 0x47, 0xf1,
-	0x8a, 0x51, 0x4a, 0x56, 0xa2, 0x7d, 0x4d, 0x6d, 0x02, 0x0f, 0xae, 0xf0, 0x0d, 0x8c, 0xab, 0x1d,
-	0xda, 0xb6, 0x68, 0x80, 0x1e, 0x65, 0x70, 0x3d, 0x0a, 0xf1, 0x47, 0xb0, 0xe4, 0xa7, 0xb2, 0xd1,
-	0x8d, 0x08, 0xc4, 0x43, 0xb6, 0xc1, 0xa2, 0x1c, 0xad, 0x22, 0xc7, 0x84, 0x81, 0xac, 0x4d, 0x59,
-	0x7d, 0x5f, 0x45, 0xf8, 0x25, 0x4c, 0xea, 0xbc, 0x16, 0x31, 0x78, 0x06, 0x27, 0x2e, 0x27, 0x81,
-	0x20, 0xee, 0x7d, 0x20, 0x7c, 0xc6, 0xd6, 0xaa, 0xb1, 0x09, 0x83, 0xcf, 0x71, 0xa1, 0xad, 0x8a,
-	0xf0, 0x57, 0x78, 0x56, 0xae, 0x6f, 0x9b, 0xd2, 0x84, 0x41, 0x92, 0xce, 0xd7, 0xa8, 0xa2, 0xd2,
-	0x44, 0xdd, 0x8a, 0x03, 0xae, 0x01, 0xbd, 0x63, 0x11, 0xad, 0x4b, 0x51, 0x24, 0xad, 0x44, 0xda,
-	0x4b, 0xd4, 0x4b, 0x12, 0x5f, 0xc0, 0xd3, 0x22, 0xa5, 0x6d, 0xf2, 0x53, 0x98, 0x2c, 0x88, 0xc8,
-	0xaa, 0xde, 0x47, 0xb1, 0xb2, 0x04, 0x9e, 0x03, 0xaa, 0x24, 0xda, 0x66, 0xb4, 0xe0, 0x91, 0xd4,
-	0x92, 0xd9, 0x31, 0x0b, 0x5f, 0xfd, 0xec, 0xc1, 0xd0, 0x4d, 0x6f, 0x55, 0x0e, 0x87, 0x2e, 0xe1,
-	0x28, 0x3f, 0x31, 0x74, 0x36, 0x4b, 0x2e, 0x77, 0xd6, 0x70, 0xb6, 0xb6, 0xd9, 0x90, 0xf2, 0xe3,
-	0x0d, 0xee, 0xa0, 0xb7, 0x60, 0x2c, 0x48, 0x2a, 0x49, 0x9d, 0x08, 0xda, 0xd7, 0x96, 0xce, 0xce,
-	0x1e, 0x57, 0xdf, 0x4b, 0xc0, 0x12, 0xd0, 0x92, 0x16, 0xec, 0x99, 0x7a, 0x04, 0x3d, 0x97, 0xc5,
-	0xcd, 0xe7, 0x61, 0x9f, 0x35, 0x67, 0x33, 0xa0, 0xb1, 0xa4, 0x52, 0xa6, 0x7b, 0x1f, 0xd0, 0x3b,
-	0x82, 0x9c, 0x62, 0x79, 0xdd, 0xce, 0xf6, 0x79, 0x5b, 0x5e, 0x02, 0x17, 0x60, 0x94, 0xcd, 0x85,
-	0x6c, 0xf9, 0x41, 0x93, 0x45, 0xed, 0xd3, 0xa6, 0x9c, 0x04, 0x5d, 0xc1, 0xb0, 0x68, 0x01, 0x64,
-	0xc9, 0xd2, 0xba, 0xb9, 0xec, 0x49, 0x3d, 0x23, 0x11, 0x1e, 0x1c, 0x17, 0x5c, 0x80, 0xce, 0xf3,
-	0x9d, 0xd6, 0x1d, 0x63, 0x1f, 0x4a, 0xe2, 0xce, 0x7c, 0xf4, 0x7b, 0xe7, 0x68, 0x7f, 0x76, 0x8e,
-	0xf6, 0x77, 0xe7, 0x68, 0xbf, 0xfe, 0x39, 0x9d, 0xdb, 0x41, 0xfa, 0x03, 0x7f, 0xfd, 0x3f, 0x00,
-	0x00, 0xff, 0xff, 0xb9, 0xe4, 0x7a, 0x97, 0xd0, 0x05, 0x00, 0x00,
+	// 552 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x54, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0x8e, 0x9d, 0x1f, 0xe8, 0x34, 0xb8, 0x61, 0xda, 0xa4, 0xc6, 0x95, 0xac, 0x68, 0x25, 0xa4,
+	0x4a, 0x48, 0x39, 0x80, 0x38, 0xd3, 0xc6, 0x48, 0x91, 0x11, 0x10, 0xe4, 0x8a, 0x03, 0xe2, 0xe4,
+	0xd6, 0xab, 0xd6, 0x12, 0xf1, 0x46, 0xeb, 0x2d, 0x52, 0xdf, 0x84, 0x47, 0xe2, 0xc8, 0x23, 0xa0,
+	0xf0, 0x1a, 0x1c, 0x2a, 0xef, 0xae, 0x1d, 0xff, 0xc4, 0xb9, 0x79, 0x76, 0x66, 0xbf, 0xf9, 0xbe,
+	0xd9, 0x6f, 0x0c, 0xc3, 0x1b, 0x9a, 0x08, 0xca, 0x67, 0x6b, 0xce, 0x04, 0xc3, 0xde, 0x0d, 0xe3,
+	0x94, 0x5c, 0xc2, 0xf1, 0x82, 0x8a, 0x2b, 0xca, 0x7f, 0x52, 0x3e, 0x7f, 0xf0, 0xa3, 0x2f, 0x21,
+	0x0f, 0x57, 0x29, 0x5a, 0x60, 0xfa, 0x91, 0x6d, 0x4c, 0x8d, 0xf3, 0x83, 0xc0, 0xf4, 0x23, 0x74,
+	0xe0, 0xa9, 0x17, 0x0a, 0x7a, 0xcb, 0xf8, 0x83, 0xdd, 0x9d, 0x1a, 0xe7, 0xfd, 0xa0, 0x88, 0xc9,
+	0x1c, 0x46, 0x15, 0x88, 0x20, 0x5d, 0x23, 0x42, 0xcf, 0x63, 0x11, 0x95, 0x08, 0xfd, 0x40, 0x7e,
+	0x67, 0x18, 0xaa, 0xc8, 0x8f, 0x6c, 0x53, 0x22, 0x17, 0x31, 0xb9, 0x90, 0x18, 0x9f, 0xe8, 0xea,
+	0x9a, 0xf2, 0x54, 0x73, 0x18, 0x41, 0x37, 0x88, 0x73, 0x12, 0xd9, 0xe7, 0x5e, 0x84, 0x6f, 0xf0,
+	0x6c, 0x8b, 0x90, 0x51, 0x38, 0x81, 0xbe, 0xc7, 0xee, 0x13, 0xa1, 0x39, 0xa8, 0x20, 0x03, 0xf5,
+	0xa3, 0xd4, 0x36, 0xa7, 0xdd, 0x0c, 0xd4, 0x8f, 0x52, 0x9c, 0xc2, 0xe1, 0x32, 0xf9, 0x11, 0x27,
+	0x54, 0x55, 0x2b, 0x75, 0xe5, 0x23, 0x22, 0x00, 0x03, 0xba, 0x66, 0x5c, 0xa8, 0xc3, 0xf6, 0x11,
+	0xb5, 0x91, 0xdb, 0x37, 0x3e, 0x9c, 0xc0, 0xe0, 0x4a, 0x84, 0xe2, 0x3e, 0xb5, 0x7b, 0x32, 0xa3,
+	0x23, 0xf2, 0x16, 0x8e, 0xca, 0x5d, 0xdb, 0xa6, 0x6a, 0x81, 0x19, 0xe7, 0x0d, 0xcd, 0x38, 0x22,
+	0x9f, 0xc1, 0x56, 0xd7, 0x54, 0x73, 0x05, 0xa6, 0x29, 0x97, 0x29, 0x1a, 0x35, 0x8a, 0x5b, 0x1a,
+	0x66, 0x85, 0xc6, 0x2b, 0x18, 0x37, 0xf1, 0x5a, 0xc8, 0x90, 0x19, 0x9c, 0x78, 0x9c, 0x86, 0x82,
+	0x7a, 0x77, 0xa1, 0x08, 0x18, 0x5b, 0xe9, 0xc6, 0x13, 0x18, 0x7c, 0x4d, 0x4b, 0x6d, 0x75, 0x44,
+	0xbe, 0xc3, 0xf3, 0x6a, 0x7d, 0x9b, 0xca, 0x09, 0x0c, 0xb2, 0x74, 0x31, 0x5a, 0x1d, 0x55, 0x14,
+	0x75, 0x6b, 0x8e, 0x78, 0x0f, 0xf8, 0x81, 0xc5, 0x49, 0x93, 0x8a, 0x46, 0x32, 0x2a, 0x48, 0x5b,
+	0x8a, 0x66, 0x85, 0xe2, 0x4b, 0x38, 0x2a, 0xa3, 0xb4, 0x29, 0x3f, 0x85, 0xf1, 0x82, 0x8a, 0xbc,
+	0xea, 0x63, 0x9c, 0x0a, 0xd5, 0x8f, 0xcc, 0x01, 0x6b, 0x89, 0x36, 0x8d, 0x36, 0x3c, 0x51, 0x5c,
+	0x72, 0x7b, 0xe6, 0xe1, 0xeb, 0xff, 0x5d, 0x18, 0x7a, 0x72, 0x77, 0x95, 0x38, 0xbc, 0x80, 0x83,
+	0x62, 0xe5, 0xf0, 0xc5, 0x2c, 0xdb, 0xe4, 0xd9, 0x8e, 0x35, 0x76, 0x26, 0x3b, 0x52, 0x41, 0xba,
+	0x26, 0x1d, 0x7c, 0x07, 0xd6, 0x82, 0x4a, 0x4a, 0x7a, 0x65, 0x70, 0x5b, 0x5b, 0x59, 0x43, 0xe7,
+	0xb8, 0x7e, 0xae, 0x00, 0x2e, 0x61, 0xa8, 0x8d, 0x29, 0xdd, 0x81, 0xb6, 0x2a, 0x6b, 0x2e, 0x8a,
+	0x33, 0x6e, 0x66, 0x14, 0xc4, 0x12, 0xac, 0x65, 0xa2, 0x88, 0x79, 0x77, 0x61, 0x72, 0x4b, 0xd1,
+	0x2d, 0x97, 0x36, 0x0d, 0xec, 0x9c, 0xb5, 0xe5, 0x15, 0xe0, 0x02, 0xac, 0xaa, 0x9d, 0xd0, 0x51,
+	0x17, 0x76, 0x99, 0xd2, 0x39, 0xdd, 0x95, 0x2b, 0xc4, 0x95, 0x1f, 0x3d, 0x17, 0xd7, 0xb4, 0x53,
+	0x2e, 0xae, 0x66, 0x11, 0xd2, 0x41, 0x1f, 0x0e, 0x4b, 0xef, 0x8e, 0x67, 0xc5, 0x14, 0x9b, 0x1e,
+	0x71, 0xf6, 0x25, 0x49, 0x67, 0x3e, 0xfa, 0xbd, 0x71, 0x8d, 0x3f, 0x1b, 0xd7, 0xf8, 0xbb, 0x71,
+	0x8d, 0x5f, 0xff, 0xdc, 0xce, 0xf5, 0x40, 0xfe, 0xc2, 0xdf, 0x3c, 0x06, 0x00, 0x00, 0xff, 0xff,
+	0x61, 0x5f, 0x8d, 0x07, 0xd2, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -862,7 +870,7 @@ type CenterServerClient interface {
 	//获取房间内成员
 	GetRoomMembers(ctx context.Context, in *GetMembersParams, opts ...grpc.CallOption) (*GetMembersRsp, error)
 	//断线汇报
-	OnDisconnectReport(ctx context.Context, in *ReportDisconnectParams, opts ...grpc.CallOption) (*ReportDisconnectRsp, error)
+	OnlineReport(ctx context.Context, in *ReportOnlineParams, opts ...grpc.CallOption) (*ReportOnlineRsp, error)
 	//节点通知
 	OnServerChange(ctx context.Context, in *ReportServerStatusParams, opts ...grpc.CallOption) (*ReportServerStatusRsp, error)
 	//创建临时聊天室
@@ -899,9 +907,9 @@ func (c *centerServerClient) GetRoomMembers(ctx context.Context, in *GetMembersP
 	return out, nil
 }
 
-func (c *centerServerClient) OnDisconnectReport(ctx context.Context, in *ReportDisconnectParams, opts ...grpc.CallOption) (*ReportDisconnectRsp, error) {
-	out := new(ReportDisconnectRsp)
-	err := c.cc.Invoke(ctx, "/core.CenterServer/OnDisconnectReport", in, out, opts...)
+func (c *centerServerClient) OnlineReport(ctx context.Context, in *ReportOnlineParams, opts ...grpc.CallOption) (*ReportOnlineRsp, error) {
+	out := new(ReportOnlineRsp)
+	err := c.cc.Invoke(ctx, "/core.CenterServer/OnlineReport", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -951,7 +959,7 @@ type CenterServerServer interface {
 	//获取房间内成员
 	GetRoomMembers(context.Context, *GetMembersParams) (*GetMembersRsp, error)
 	//断线汇报
-	OnDisconnectReport(context.Context, *ReportDisconnectParams) (*ReportDisconnectRsp, error)
+	OnlineReport(context.Context, *ReportOnlineParams) (*ReportOnlineRsp, error)
 	//节点通知
 	OnServerChange(context.Context, *ReportServerStatusParams) (*ReportServerStatusRsp, error)
 	//创建临时聊天室
@@ -972,8 +980,8 @@ func (*UnimplementedCenterServerServer) GetServer(ctx context.Context, req *GetS
 func (*UnimplementedCenterServerServer) GetRoomMembers(ctx context.Context, req *GetMembersParams) (*GetMembersRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoomMembers not implemented")
 }
-func (*UnimplementedCenterServerServer) OnDisconnectReport(ctx context.Context, req *ReportDisconnectParams) (*ReportDisconnectRsp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method OnDisconnectReport not implemented")
+func (*UnimplementedCenterServerServer) OnlineReport(ctx context.Context, req *ReportOnlineParams) (*ReportOnlineRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OnlineReport not implemented")
 }
 func (*UnimplementedCenterServerServer) OnServerChange(ctx context.Context, req *ReportServerStatusParams) (*ReportServerStatusRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OnServerChange not implemented")
@@ -1028,20 +1036,20 @@ func _CenterServer_GetRoomMembers_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CenterServer_OnDisconnectReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReportDisconnectParams)
+func _CenterServer_OnlineReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReportOnlineParams)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CenterServerServer).OnDisconnectReport(ctx, in)
+		return srv.(CenterServerServer).OnlineReport(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/core.CenterServer/OnDisconnectReport",
+		FullMethod: "/core.CenterServer/OnlineReport",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CenterServerServer).OnDisconnectReport(ctx, req.(*ReportDisconnectParams))
+		return srv.(CenterServerServer).OnlineReport(ctx, req.(*ReportOnlineParams))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1131,8 +1139,8 @@ var _CenterServer_serviceDesc = grpc.ServiceDesc{
 			Handler:    _CenterServer_GetRoomMembers_Handler,
 		},
 		{
-			MethodName: "OnDisconnectReport",
-			Handler:    _CenterServer_OnDisconnectReport_Handler,
+			MethodName: "OnlineReport",
+			Handler:    _CenterServer_OnlineReport_Handler,
 		},
 		{
 			MethodName: "OnServerChange",
@@ -1320,7 +1328,7 @@ func (m *GetMembersRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *ReportDisconnectParams) Marshal() (dAtA []byte, err error) {
+func (m *ReportOnlineParams) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1330,12 +1338,12 @@ func (m *ReportDisconnectParams) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ReportDisconnectParams) MarshalTo(dAtA []byte) (int, error) {
+func (m *ReportOnlineParams) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *ReportDisconnectParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *ReportOnlineParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1343,6 +1351,11 @@ func (m *ReportDisconnectParams) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Status != 0 {
+		i = encodeVarintCenter(dAtA, i, uint64(m.Status))
+		i--
+		dAtA[i] = 0x20
 	}
 	if m.Category != 0 {
 		i = encodeVarintCenter(dAtA, i, uint64(m.Category))
@@ -1366,7 +1379,7 @@ func (m *ReportDisconnectParams) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
-func (m *ReportDisconnectRsp) Marshal() (dAtA []byte, err error) {
+func (m *ReportOnlineRsp) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1376,12 +1389,12 @@ func (m *ReportDisconnectRsp) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ReportDisconnectRsp) MarshalTo(dAtA []byte) (int, error) {
+func (m *ReportOnlineRsp) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *ReportDisconnectRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *ReportOnlineRsp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1790,7 +1803,7 @@ func (m *GetMembersRsp) Size() (n int) {
 	return n
 }
 
-func (m *ReportDisconnectParams) Size() (n int) {
+func (m *ReportOnlineParams) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1807,13 +1820,16 @@ func (m *ReportDisconnectParams) Size() (n int) {
 	if m.Category != 0 {
 		n += 1 + sovCenter(uint64(m.Category))
 	}
+	if m.Status != 0 {
+		n += 1 + sovCenter(uint64(m.Status))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
 
-func (m *ReportDisconnectRsp) Size() (n int) {
+func (m *ReportOnlineRsp) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2431,7 +2447,7 @@ func (m *GetMembersRsp) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ReportDisconnectParams) Unmarshal(dAtA []byte) error {
+func (m *ReportOnlineParams) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2454,10 +2470,10 @@ func (m *ReportDisconnectParams) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ReportDisconnectParams: wiretype end group for non-group")
+			return fmt.Errorf("proto: ReportOnlineParams: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ReportDisconnectParams: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: ReportOnlineParams: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -2543,6 +2559,25 @@ func (m *ReportDisconnectParams) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			m.Status = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCenter
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Status |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipCenter(dAtA[iNdEx:])
@@ -2568,7 +2603,7 @@ func (m *ReportDisconnectParams) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ReportDisconnectRsp) Unmarshal(dAtA []byte) error {
+func (m *ReportOnlineRsp) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2591,10 +2626,10 @@ func (m *ReportDisconnectRsp) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ReportDisconnectRsp: wiretype end group for non-group")
+			return fmt.Errorf("proto: ReportOnlineRsp: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ReportDisconnectRsp: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: ReportOnlineRsp: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

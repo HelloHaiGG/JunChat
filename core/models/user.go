@@ -98,7 +98,7 @@ func (p *Users) AllUsers() error {
 	return nil
 }
 
-//遍历所有server,如果现在直接返回所在serverId
+//遍历所有server,如果存在直接返回所在serverId
 func GetOnlineServer(uid string) (string, error) {
 	server, err := iredis.RedisCli.HGetAll(common.LiveOnServer).Result()
 	if err != nil {

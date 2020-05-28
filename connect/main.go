@@ -32,6 +32,7 @@ func main() {
 	NETServer = flag.String("NET", "node-1", "NET节点")
 	servers2.NETServer = *NETServer
 	flag.Parse()
+	log.Println("RPCServer:",*RPCServer,"NETServer:",*NETServer)
 	rpcPort, ok := config.APPConfig.CN.Nodes[*RPCServer]
 	if !ok {
 		log.Fatalf("未配置的RPC节点")

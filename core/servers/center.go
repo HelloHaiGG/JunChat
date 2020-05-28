@@ -28,26 +28,32 @@ func (p *CenterServerController) GetRoomMembers(ctx context.Context, in *core.Ge
 	return nil, nil
 }
 
-func (p *CenterServerController) OnDisconnectReport(ctx context.Context, in *core.ReportDisconnectParams) (*core.ReportDisconnectRsp, error) {
-
+func (p *CenterServerController) OnlineReport(ctx context.Context, in *core.ReportOnlineParams) (*core.ReportOnlineRsp, error) {
 	//去除redis中的记录
 	str, err := iredis.RedisCli.HGet(common2.LiveOnServer, in.ServerId).Result()
 	if err != nil {
-		return &core.ReportDisconnectRsp{Code: common2.ServeNotLive}, nil
+		return &core.ReportOnlineRsp{Code: common2.ServeNotLive}, nil
 	}
 	users := &models.Users{}
 	_ = jsoniter.UnmarshalFromString(str, users)
 	i, at := utils.IncludeItem(users.Ids, in.Id)
-	if !at {
-		return &core.ReportDisconnectRsp{Code: common2.UserAlreadyRemove}, nil
+	if !at && in.Status == common2.Offline {
+		return &core.ReportOnlineRsp{Code: common2.UserAlreadyRemove}, nil
 	}
-	users.Ids = append(users.Ids[:i], users.Ids[i+1:]...)
+	if at && in.Status == common2.Online {
+		return &core.ReportOnlineRsp{Code: common2.Success, Id: in.Id}, nil
+	}
+	if !at && in.Status == common2.Online {
+		users.Ids = append(users.Ids, in.Id)
+	} else if at && in.Status == common2.Offline {
+		users.Ids = append(users.Ids[:i], users.Ids[i+1:]...)
+	}
 	str, _ = jsoniter.MarshalToString(users)
 	suc, _ := iredis.RedisCli.HSet(common2.LiveOnServer, in.ServerId, str).Result()
 	if !suc {
-		return &core.ReportDisconnectRsp{Code: common2.RemoveUserIdFailed}, nil
+		return &core.ReportOnlineRsp{Code: common2.RemoveUserIdFailed}, nil
 	}
-	return &core.ReportDisconnectRsp{Code: common2.Success, Id: in.Id}, nil
+	return &core.ReportOnlineRsp{Code: common2.Success, Id: in.Id}, nil
 }
 func (p *CenterServerController) OnServerChange(cxt context.Context, in *core.ReportServerStatusParams) (*core.ReportServerStatusRsp, error) {
 	if in.ServerId == "" {

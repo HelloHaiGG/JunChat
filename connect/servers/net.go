@@ -40,7 +40,26 @@ func HandleReq(w http.ResponseWriter, r *http.Request) {
 	conn := &Connect{ConnectTime: time.Now().Unix()}
 	userId, err := conn.upgrade(w, r)
 	if err != nil || userId == "" {
+		log.Println("Upgrade Err:", err)
 		_, _ = io.WriteString(w, "链接失败!")
+		return
+	}
+	// 汇报
+	rpcConn := common.GetServerConn(config.APPConfig.Servers.Core)
+	client := core.NewCenterServerClient(rpcConn)
+	rsp, err := client.OnlineReport(context.Background(), &core.ReportOnlineParams{
+		Id:       userId,
+		ServerId: NETServer,
+		Category: 0,
+		Status:   common2.Online,
+	})
+	if err != nil {
+		_ = conn.CloseConn()
+		log.Println("Rpc Call Report Online Err:", err)
+	}
+	if rsp.Code != common2.Success {
+		_ = conn.CloseConn()
+		log.Println("Rpc Call Report Online Err:", rsp.Code)
 		return
 	}
 	conn.Uid = userId
@@ -56,18 +75,11 @@ func HandleReq(w http.ResponseWriter, r *http.Request) {
 func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) (string, error) {
 	//解析TOKEN 验证用户信息
 	protocols := websocket.Subprotocols(r)
-	if len(protocols) < 2 {
+	if len(protocols) < 1 {
 		_, _ = io.WriteString(w, "Sub Protocol!")
 		return "", nil
 	}
-	serverId := protocols[0]
-	userId := protocols[1]
-	//判断用户时候连到对的节点
-	if NETServer != serverId {
-		_, _ = io.WriteString(w, "节点错误!")
-		return "", nil
-	}
-
+	userId := protocols[0]
 	//将http请求升级为websocket
 	upgrade := &websocket.Upgrader{CheckOrigin: func(r *http.Request) bool {
 		return true
@@ -80,7 +92,6 @@ func (p *Connect) upgrade(w http.ResponseWriter, r *http.Request) (string, error
 	return userId, nil
 }
 
-//监听socket链接心跳
 func (p *Connect) HandlerConn() {
 	defer func() {
 		_ = p.CloseConn()
@@ -100,13 +111,13 @@ func (p *Connect) HandlerConn() {
 //关闭链接,并将删除map内链接,并向Core层汇报
 func (p *Connect) CloseConn() error {
 	_ = p.Conn.Close()
-
 	conn := common.GetServerConn(config.APPConfig.Servers.Core)
 	client := core.NewCenterServerClient(conn)
-	rsp, err := client.OnDisconnectReport(context.Background(), &core.ReportDisconnectParams{
+	rsp, err := client.OnlineReport(context.Background(), &core.ReportOnlineParams{
 		Id:       p.Uid,
 		ServerId: NETServer,
 		Category: 0,
+		Status:   common2.Offline,
 	})
 	if err != nil {
 		log.Println("Rpc Call Report Disconnect Err:", err)
